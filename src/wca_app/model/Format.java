@@ -2,11 +2,13 @@
 package wca_app.model;
 
 import java.io.Serializable;
+import javax.persistence.Table;
 
 /**
  * @author Mata
  */
 @javax.persistence.Entity
+@Table(name = "Formats")
 public class Format extends Entity implements Serializable{
     // INIT VARS
     private String name;

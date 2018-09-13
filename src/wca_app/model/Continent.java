@@ -3,11 +3,13 @@ package wca_app.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import javax.persistence.Table;
 
 /**
  * @author Mata
  */
 @javax.persistence.Entity
+@Table(name = "Continents")
 public class Continent extends Entity implements Serializable{
     //  INIT VARS
     
@@ -19,7 +21,8 @@ public class Continent extends Entity implements Serializable{
     //  END INIT VARS
     
     //  CONSTRUCTORS
-    public Continent(String name, String recordName, BigInteger latitude, BigInteger longitude, int zoom) {
+    public Continent(String name, String recordName, BigInteger latitude,
+            BigInteger longitude, int zoom) {
         this.name = name;
         this.recordName = recordName;
         this.latitude = latitude;
@@ -77,7 +80,9 @@ public class Continent extends Entity implements Serializable{
     @Override
     public String toString() {
         return String.format
-            ("Continent [id=%s, name=%s, recordName=%s, longitue=%s, latitude=%s, zoom=%s]",  getId(), name, recordName, longitude, latitude, zoom);
+            ("Continent [id=%s, name=%s, recordName=%s, longitue=%s," +
+                    " latitude=%s, zoom=%s]",  getId(), name, recordName,
+                    longitude, latitude, zoom);
     }
     
     public String toString(int i){

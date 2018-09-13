@@ -5,7 +5,7 @@
  */
 package wca_app;
 
-import wca_app.util.Autorization;
+import wca_app.util.InitialInsert;
 import wca_app.view.Loading;
 
 /**
@@ -18,7 +18,8 @@ public class Start {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Loading().setVisible(true);
+        InitialInsert.run();
+        //new Loading().setVisible(true);
     }
     
 }

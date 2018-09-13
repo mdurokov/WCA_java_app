@@ -32,11 +32,12 @@
     create-drop: drop the schema at the end of the session. 
     1. puta create, poslije update
     -->
-    <property name="hbm2ddl.auto">update</property>
+    <property name="hbm2ddl.auto">create</property>
   
     <!-- JDBC connection pool (use the built-in) -->
     <property name="connection.pool_size">1</property>
     <property name="current_session_context_class">thread</property>
+    <property name="hibernate.globally_quoted_identifiers">true</property>
  
     
     
@@ -46,6 +47,12 @@
     <mapping class="wca_app.model.Format" />
     <mapping class="wca_app.model.RoundType" />
     <mapping class="wca_app.model.Operator" />
+    <mapping class="wca_app.model.Country" />
+    <mapping class="wca_app.model.Competition" />
+    <mapping class="wca_app.model.Competitor" />
+    <mapping class="wca_app.model.Result" />
+    <mapping class="wca_app.model.Scramble" />
+    
    
 </session-factory>
 </hibernate-configuration>

@@ -2,11 +2,13 @@
 package wca_app.model;
 
 import java.io.Serializable;
+import javax.persistence.Table;
 
 /**
  * @author Mata
  */
 @javax.persistence.Entity
+@Table(name = "RoundTypes")
 public class RoundType extends Entity implements Serializable{
     //  INIT VARS
     private int rank;
@@ -64,7 +66,8 @@ public class RoundType extends Entity implements Serializable{
     @Override
     public String toString() {
         return String.format
-            ("Round type [id=%s, rank=%s, name=%s, cellName=%s, final=%s]",  getId(), rank, name, cellName, finale);
+            ("Round type [id=%s, rank=%s, name=%s, cellName=%s, final=%s]",
+                    getId(), rank, name, cellName, finale);
     
     } 
     

@@ -2,24 +2,24 @@
 package wca_app.model;
 
 import java.io.Serializable;
+import javax.persistence.Table;
 
 /**
  * @author Mata
  */
 @javax.persistence.Entity
+@Table(name = "Events")
 public class Event extends Entity implements Serializable {
     //  INIT VARS
     private String name;
     private int rank;
     private String format;
-    private String cellName;
     
     //  CONSTRUCTORS
-    public Event(String name, int rank, String format, String cellName) {
+    public Event(String name, int rank, String format) {
         this.name = name;
         this.rank = rank;
         this.format = format;
-        this.cellName = cellName;
     }
 
     public Event() {
@@ -51,20 +51,13 @@ public class Event extends Entity implements Serializable {
     public void setFormat(String format) {
         this.format = format;
     }
-
-    public String getCellName() {
-        return cellName;
-    }
-
-    public void setCellName(String cellName) {
-        this.cellName = cellName;
-    }
     //  END GETTERS SETTERS
     
     @Override
     public String toString() {
         return String.format
-            ("Event [id=%s, name=%s, rank=%s, format=%s, cellName=%s]",  getId(), name, rank, format, cellName);
+            ("Event [id=%s, name=%s, rank=%s, format=%s",
+                    getId(), name, rank, format);
     
     } 
     
