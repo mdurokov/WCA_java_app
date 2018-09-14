@@ -28,12 +28,19 @@ public class Result extends Entity implements Serializable{
     @ManyToOne
     @JoinColumn(name="format_id", nullable=false)
     private Format format_id;
+    @Column(nullable=true)
     private int pos;
+    @Column(nullable=true)
     private int value1;
+    @Column(nullable=true)
     private int value2;
+    @Column(nullable=true)
     private int value3;
+    @Column(nullable=true)
     private int value4;
+    @Column(nullable=true)
     private int value5;
+    
 
     public Result() {
     }

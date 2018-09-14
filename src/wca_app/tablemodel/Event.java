@@ -1,29 +1,24 @@
 
-package wca_app.model;
-
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Table;
+package wca_app.tablemodel;
 
 /**
  * @author Mata
  */
-@javax.persistence.Entity
-@Table(name = "Events")
-public class Event extends Entity implements Serializable {
+public class Event {
     //  INIT VARS
-    @Column(nullable=false)
+    private int id;
     private String name;
-    @Column(nullable=false)
     private int rank;
-    @Column(nullable=false)
     private String format;
+    private String cellName;
     
     //  CONSTRUCTORS
-    public Event(String name, int rank, String format) {
+    public Event(int id, String name, int rank, String format, String cellName) {
+        this.id = id;
         this.name = name;
         this.rank = rank;
         this.format = format;
+        this.cellName = cellName;
     }
 
     public Event() {
@@ -31,7 +26,14 @@ public class Event extends Entity implements Serializable {
     //  END CONTSTRUCTORS
     
     //  GETTERS SETTERS
-    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -55,13 +57,20 @@ public class Event extends Entity implements Serializable {
     public void setFormat(String format) {
         this.format = format;
     }
+
+    public String getCellName() {
+        return cellName;
+    }
+
+    public void setCellName(String cellName) {
+        this.cellName = cellName;
+    }
     //  END GETTERS SETTERS
     
     @Override
     public String toString() {
         return String.format
-            ("Event [id=%s, name=%s, rank=%s, format=%s",
-                    getId(), name, rank, format);
+            ("Event [id=%s, name=%s, rank=%s, format=%s, cellName=%s]",  id, name, rank, format, cellName);
     
     } 
     

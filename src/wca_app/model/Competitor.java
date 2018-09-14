@@ -16,9 +16,13 @@ public class Competitor extends Entity implements Serializable{
     @ManyToOne
     @JoinColumn(name="country_id", nullable = false)
     private Country country_id;
+    @Column(nullable=false)
     private String tag;
+    @Column(nullable=false)
     private String firstName;
+    @Column(nullable=false)
     private String lastName;
+    @Column(nullable=false)
     private char gender;
 
     public Competitor() {

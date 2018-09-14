@@ -30,7 +30,6 @@ public class Autorization {
     
     public static Operator AuthenticateOperator(String email, char[] password){
         Session session = HibernateUtil.getSession();
-        System.out.println(getHash(String.valueOf(password)));
         return (Operator)session.createQuery("from Operator where "
                 + " email=:email and password=:password")
                 .setString("email", email)

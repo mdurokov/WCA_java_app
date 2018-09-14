@@ -40,6 +40,7 @@ public class AutorizationForm extends javax.swing.JFrame {
         loginBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(204, 204, 204)));
 
@@ -119,6 +120,7 @@ public class AutorizationForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
@@ -126,7 +128,7 @@ public class AutorizationForm extends javax.swing.JFrame {
         if(operator == null){
             JOptionPane.showMessageDialog(getRootPane(), "Username and password are not valid!");
         }else{
-            new MainView().setVisible(true);
+            new MainView(operator).setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_loginBtnActionPerformed

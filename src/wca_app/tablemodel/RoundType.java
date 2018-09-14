@@ -1,28 +1,20 @@
 
-package wca_app.model;
-
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Table;
+package wca_app.tablemodel;
 
 /**
  * @author Mata
  */
-@javax.persistence.Entity
-@Table(name = "RoundTypes")
-public class RoundType extends Entity implements Serializable{
+public class RoundType {
     //  INIT VARS
-    @Column(nullable=false)
+    private int id;
     private int rank;
-    @Column(nullable=false)
     private String name;
-    @Column(nullable=false)
     private String cellName;
-    @Column(nullable=false)
     private int finale;
     
     //  CONSTRUCTORS
-    public RoundType(int rank, String name, String cellName, int finale) {
+    public RoundType(int id, int rank, String name, String cellName, int finale) {
+        this.id = id;
         this.rank = rank;
         this.name = name;
         this.cellName = cellName;
@@ -34,6 +26,14 @@ public class RoundType extends Entity implements Serializable{
     //  END CONSTRUCTORS
     
     //  GETTERS SETTERS
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getRank() {
         return rank;
@@ -71,8 +71,7 @@ public class RoundType extends Entity implements Serializable{
     @Override
     public String toString() {
         return String.format
-            ("Round type [id=%s, rank=%s, name=%s, cellName=%s, final=%s]",
-                    getId(), rank, name, cellName, finale);
+            ("Round type [id=%s, rank=%s, name=%s, cellName=%s, final=%s]",  id, rank, name, cellName, finale);
     
     } 
     

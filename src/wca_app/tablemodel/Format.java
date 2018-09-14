@@ -1,22 +1,17 @@
 
-package wca_app.model;
-
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Table;
+package wca_app.tablemodel;
 
 /**
  * @author Mata
  */
-@javax.persistence.Entity
-@Table(name = "Formats")
-public class Format extends Entity implements Serializable{
+public class Format {
     // INIT VARS
-    @Column(nullable=false)
+    private int id;
     private String name;
     
     // CONSTRUCTORS
-    public Format(String name) {
+    public Format(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -25,6 +20,14 @@ public class Format extends Entity implements Serializable{
     //  END CONSTRUCTORS
     
     //  GETTERS SETTERS
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -38,7 +41,7 @@ public class Format extends Entity implements Serializable{
     @Override
     public String toString() {
         return String.format
-            ("Format [id=%s, name=%s]",  getId(), name);
+            ("Format [id=%s, name=%s]",  id, name);
     
     } 
     

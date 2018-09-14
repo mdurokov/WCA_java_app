@@ -24,8 +24,11 @@ public class Scramble extends Entity implements Serializable{
     private RoundType roundType_id;
     @Column(name = "group", nullable=false)
     private String group;
+    @Column(nullable=false)
     private boolean isExtra;
+    @Column(nullable=false)
     private int scrambleNum;
+    @Column(nullable=false)
     private String scramble;
 
     public Scramble() {

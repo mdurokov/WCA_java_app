@@ -18,10 +18,14 @@ public class Competition extends Entity implements Serializable{
     @ManyToOne
     @JoinColumn(name="country_id", nullable=false )
     private Country country_id;
+    @Column(nullable=false)
     private String name;
+    @Column(nullable=false)
     private String city;
     private String information;
+    @Column(nullable=false)
     private Date startDate;
+    @Column(nullable=false)
     private Date endDate;
     private String eventSpecs;
     private String wcaDelegate;
@@ -30,6 +34,7 @@ public class Competition extends Entity implements Serializable{
     private String venueAddress;
     private String venueDetails;
     private String website;
+    @Column(nullable=false)
     private String cellName;
     private BigInteger latitude;
     private BigInteger longitude;

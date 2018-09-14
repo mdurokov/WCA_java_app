@@ -2,6 +2,7 @@
 package wca_app.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Table;
 
 /**
@@ -9,9 +10,12 @@ import javax.persistence.Table;
  */
 @javax.persistence.Entity
 @Table(name = "Operators")
-public class Operator extends Entity implements Serializable{    
+public class Operator extends Entity implements Serializable{ 
+    @Column(nullable=false)
     private String email;
+    @Column(nullable=false)
     private String password;
+    @Column(nullable=false)
     private boolean isAdmin;
 
     public Operator(){
@@ -42,7 +46,7 @@ public class Operator extends Entity implements Serializable{
         this.password = password;
     }
 
-    public boolean isIsAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 

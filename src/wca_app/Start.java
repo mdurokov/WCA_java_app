@@ -5,6 +5,7 @@
  */
 package wca_app;
 
+import javax.swing.UIManager;
 import wca_app.util.InitialInsert;
 import wca_app.view.Loading;
 
@@ -18,8 +19,13 @@ public class Start {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        InitialInsert.run();
-        //new Loading().setVisible(true);
+        try { 
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel"); 
+        } catch (Exception ex) { 
+            ex.printStackTrace(); 
+        }
+        //InitialInsert.run();
+        new Loading().setVisible(true);
     }
     
 }

@@ -1,33 +1,22 @@
 
-package wca_app.model;
-
-import java.io.Serializable;
-import java.math.BigInteger;
-import javax.persistence.Column;
-import javax.persistence.Table;
+package wca_app.tablemodel;
 
 /**
  * @author Mata
  */
-@javax.persistence.Entity
-@Table(name = "Continents")
-public class Continent extends Entity implements Serializable{
+public class Continent {
     //  INIT VARS
-    @Column(nullable=false)
+    private int id;
     private String name;
-    @Column(nullable=false)
     private String recordName;
-    @Column(nullable=false)
-    private BigInteger latitude;
-    @Column(nullable=false)
-    private BigInteger longitude;
-    @Column(nullable=false)
+    private String latitude;
+    private String longitude;
     private int zoom;
     //  END INIT VARS
     
     //  CONSTRUCTORS
-    public Continent(String name, String recordName, BigInteger latitude,
-            BigInteger longitude, int zoom) {
+    public Continent(int id, String name, String recordName, String latitude, String longitude, int zoom) {
+        this.id = id;
         this.name = name;
         this.recordName = recordName;
         this.latitude = latitude;
@@ -40,6 +29,14 @@ public class Continent extends Entity implements Serializable{
     //  END CONSTRUCTORS
 
     //  GETTERS SETTERS
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -56,19 +53,19 @@ public class Continent extends Entity implements Serializable{
         this.recordName = recordName;
     }
 
-    public BigInteger getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(BigInteger latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public BigInteger getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(BigInteger longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
@@ -85,9 +82,7 @@ public class Continent extends Entity implements Serializable{
     @Override
     public String toString() {
         return String.format
-            ("Continent [id=%s, name=%s, recordName=%s, longitue=%s," +
-                    " latitude=%s, zoom=%s]",  getId(), name, recordName,
-                    longitude, latitude, zoom);
+            ("Continent [id=%s, name=%s, recordName=%s, longitue=%s, latitude=%s, zoom=%s]",  id, name, recordName, longitude, latitude, zoom);
     }
     
     public String toString(int i){

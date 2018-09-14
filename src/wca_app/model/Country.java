@@ -16,7 +16,9 @@ public class Country extends Entity implements Serializable{
     @ManyToOne
     @JoinColumn(name="continent_id", nullable=false)
     private Continent continent_id;
+    @Column(nullable=false)
     private String name;
+    @Column(nullable=false)
     private String iso2;
 
     public Country() {
