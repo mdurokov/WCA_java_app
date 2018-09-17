@@ -58,23 +58,17 @@ public class Loading extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        loadingImgLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wca_app/view/WCAlogo.png"))); // NOI18N
+        loadingImgLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wca_app/view/img/WCAlogo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(loadingImgLbl)
-                .addContainerGap())
+            .addComponent(loadingImgLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(loadingImgLbl)
-                .addContainerGap())
+            .addComponent(loadingImgLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

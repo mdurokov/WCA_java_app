@@ -5,15 +5,27 @@
  */
 package wca_app.view;
 
+import java.awt.Component;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 import wca_app.model.Operator;
+import wca_app.view.panel.CompetitionsPanel;
+import wca_app.view.panel.CompetitorsPanel;
+import wca_app.view.panel.ResultsPanel;
+import wca_app.view.panel.ScramblesPanel;
 
-/**
- *
- * @author Mata
- */
+
 public class MainView extends javax.swing.JFrame {
-
+    
+    private JPanel competitionsPanel;
+    private JPanel competitorsPanel;
+    private JPanel resultsPanel;
+    private JPanel scramblesPanel;
     private Operator operator;
+    private Border loweredBorder = BorderFactory.createLoweredBevelBorder();
+    private Border raisedBorder = BorderFactory.createRaisedBevelBorder();
     
     public MainView(Operator operator) {
         initComponents();
@@ -23,6 +35,11 @@ public class MainView extends javax.swing.JFrame {
         }else{
             setTitle("WCA - World Cube Association");
         }
+        competitionsPanel = new CompetitionsPanel();
+        competitorsPanel = new CompetitorsPanel();
+        resultsPanel = new ResultsPanel();
+        scramblesPanel = new ScramblesPanel();
+        setPanel(competitionsPanel);
         
         
         
@@ -45,36 +62,49 @@ public class MainView extends javax.swing.JFrame {
         optionsBtn = new javax.swing.JButton();
         competitionsBtn = new javax.swing.JButton();
         decorativePnl = new javax.swing.JPanel();
-        tableScrlPnl = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
-        controlButtonPnl = new javax.swing.JPanel();
-        searchField = new javax.swing.JTextField();
-        searchBtn = new javax.swing.JButton();
-        addBtn = new javax.swing.JButton();
-        updateBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
+        viewPnl = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wca_app/view/small.png"))); // NOI18N
+        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/wca_app/view/img/small.png"))); // NOI18N
 
         resultsBtn.setText("Results");
-        resultsBtn.setBorder(null);
+        resultsBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        resultsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultsBtnActionPerformed(evt);
+            }
+        });
 
         competitorsBtn.setText("Competitors");
-        competitorsBtn.setBorder(null);
+        competitorsBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        competitorsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                competitorsBtnActionPerformed(evt);
+            }
+        });
 
         scramblesBtn.setText("Scrambles");
-        scramblesBtn.setBorder(null);
+        scramblesBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        scramblesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scramblesBtnActionPerformed(evt);
+            }
+        });
 
         optionsBtn.setText("Options");
-        optionsBtn.setBorder(null);
+        optionsBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         competitionsBtn.setText("Competitions");
-        competitionsBtn.setBorder(null);
+        competitionsBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        competitionsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                competitionsBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout menuPnlLayout = new javax.swing.GroupLayout(menuPnl);
         menuPnl.setLayout(menuPnlLayout);
@@ -107,7 +137,7 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(scramblesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(optionsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         decorativePnl.setBackground(new java.awt.Color(153, 153, 153));
@@ -123,59 +153,15 @@ public class MainView extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        table.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        tableScrlPnl.setViewportView(table);
-
-        searchBtn.setText("Search");
-
-        addBtn.setText("Add New");
-
-        updateBtn.setText("Update");
-
-        deleteBtn.setText("Delete");
-
-        javax.swing.GroupLayout controlButtonPnlLayout = new javax.swing.GroupLayout(controlButtonPnl);
-        controlButtonPnl.setLayout(controlButtonPnlLayout);
-        controlButtonPnlLayout.setHorizontalGroup(
-            controlButtonPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlButtonPnlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addBtn)
-                .addGap(18, 18, 18)
-                .addComponent(updateBtn)
-                .addGap(18, 18, 18)
-                .addComponent(deleteBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(searchBtn)
-                .addContainerGap())
+        javax.swing.GroupLayout viewPnlLayout = new javax.swing.GroupLayout(viewPnl);
+        viewPnl.setLayout(viewPnlLayout);
+        viewPnlLayout.setHorizontalGroup(
+            viewPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 825, Short.MAX_VALUE)
         );
-        controlButtonPnlLayout.setVerticalGroup(
-            controlButtonPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(controlButtonPnlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(controlButtonPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchBtn)
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlButtonPnlLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(controlButtonPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addBtn)
-                            .addComponent(updateBtn)
-                            .addComponent(deleteBtn))))
-                .addContainerGap())
+        viewPnlLayout.setVerticalGroup(
+            viewPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
@@ -195,21 +181,16 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(decorativePnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(controlButtonPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tableScrlPnl))
+                .addComponent(viewPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menuPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(controlButtonPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tableScrlPnl, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(viewPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(decorativePnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -217,6 +198,22 @@ public class MainView extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void competitionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_competitionsBtnActionPerformed
+        setPanel(competitionsPanel);
+    }//GEN-LAST:event_competitionsBtnActionPerformed
+
+    private void resultsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultsBtnActionPerformed
+        setPanel(resultsPanel);
+    }//GEN-LAST:event_resultsBtnActionPerformed
+
+    private void competitorsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_competitorsBtnActionPerformed
+        setPanel(competitorsPanel);
+    }//GEN-LAST:event_competitorsBtnActionPerformed
+
+    private void scramblesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scramblesBtnActionPerformed
+        setPanel(scramblesPanel);
+    }//GEN-LAST:event_scramblesBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
@@ -235,8 +232,43 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton scramblesBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchField;
-    private javax.swing.JTable table;
-    private javax.swing.JScrollPane tableScrlPnl;
     private javax.swing.JButton updateBtn;
+    private javax.swing.JPanel viewPnl;
     // End of variables declaration//GEN-END:variables
+
+    private void setPanel(JPanel panel) {
+        viewPnl.removeAll();
+        viewPnl.add(panel);
+        panel.setSize(viewPnl.getSize());
+        viewPnl.revalidate();
+        viewPnl.repaint();
+        
+        resetButtons();
+        
+        switch(panel.getName()){
+            case "Competitions":
+                competitionsBtn.setBorder(loweredBorder);
+                break;
+            case "Competitors":
+                competitorsBtn.setBorder(loweredBorder);
+                break;
+            case "Results":
+                resultsBtn.setBorder(loweredBorder);
+                break;
+            case "Scrambles":
+                scramblesBtn.setBorder(loweredBorder);
+                    
+        }
+        
+        
+        
+    }
+
+    private void resetButtons() {
+        for (Component components : menuPnl.getComponents()) {
+            if(components instanceof JButton){
+                ((JButton) components).setBorder(raisedBorder);
+            }
+        }
+    }
 }
