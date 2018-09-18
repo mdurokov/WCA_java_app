@@ -57,9 +57,10 @@ public class Country extends Entity implements Serializable{
 
     @Override
     public String toString() {
-        return "Country{ id=" + getId() + "continent_id=" + continent_id + 
-                ", name=" + name + ", iso2=" + iso2 + '}';
+        return getName();
     }
+    
+    
     
     
     

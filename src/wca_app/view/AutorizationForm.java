@@ -49,8 +49,18 @@ public class AutorizationForm extends javax.swing.JFrame {
         jLabel3.setText("Password:");
 
         passwordTxt.setText("lozinka");
+        passwordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordTxtKeyPressed(evt);
+            }
+        });
 
         emailTxt.setText("matejdurokovic@gmail.com");
+        emailTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                emailTxtKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,14 +134,20 @@ public class AutorizationForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        Operator operator = Autorization.AuthenticateOperator(emailTxt.getText(), passwordTxt.getPassword());
-        if(operator == null){
-            JOptionPane.showMessageDialog(getRootPane(), "Username and password are not valid!");
-        }else{
-            new MainView(operator).setVisible(true);
-            dispose();
-        }
+        autorize();
     }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void passwordTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTxtKeyPressed
+        if(evt.getKeyCode() == 10){
+            autorize();
+        }
+    }//GEN-LAST:event_passwordTxtKeyPressed
+
+    private void emailTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailTxtKeyPressed
+        if(evt.getKeyCode() == 10){
+            autorize();
+        }
+    }//GEN-LAST:event_emailTxtKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -143,4 +159,14 @@ public class AutorizationForm extends javax.swing.JFrame {
     private javax.swing.JButton loginBtn;
     private javax.swing.JPasswordField passwordTxt;
     // End of variables declaration//GEN-END:variables
+    
+    public void autorize(){
+        Operator operator = Autorization.AuthenticateOperator(emailTxt.getText(), passwordTxt.getPassword());
+        if(operator == null){
+            JOptionPane.showMessageDialog(getRootPane(), "Username and password are not valid!");
+        }else{
+            new MainView(operator).setVisible(true);
+            dispose();
+        }
+    }
 }

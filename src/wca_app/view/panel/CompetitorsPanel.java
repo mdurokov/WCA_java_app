@@ -45,12 +45,13 @@ public class CompetitorsPanel extends javax.swing.JPanel {
         tableScrlPnl = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         controlButtonPnl1 = new javax.swing.JPanel();
-        searchField1 = new javax.swing.JTextField();
-        searchBtn1 = new javax.swing.JButton();
-        addBtn1 = new javax.swing.JButton();
-        updateBtn1 = new javax.swing.JButton();
-        deleteBtn1 = new javax.swing.JButton();
+        searchField = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        openBtn = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(825, 0));
 
@@ -71,50 +72,49 @@ public class CompetitorsPanel extends javax.swing.JPanel {
         table.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tableScrlPnl.setViewportView(table);
 
-        searchBtn1.setText("Search");
+        searchBtn.setText("Search");
 
-        addBtn1.setText("Add New");
+        addBtn.setText("Add New");
 
-        updateBtn1.setText("Update");
+        updateBtn.setText("Update");
 
-        deleteBtn1.setText("Delete");
+        deleteBtn.setText("Delete");
 
         jLabel1.setText("Competitors");
+
+        openBtn.setText("Open");
 
         javax.swing.GroupLayout controlButtonPnl1Layout = new javax.swing.GroupLayout(controlButtonPnl1);
         controlButtonPnl1.setLayout(controlButtonPnl1Layout);
         controlButtonPnl1Layout.setHorizontalGroup(
             controlButtonPnl1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlButtonPnl1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addBtn1)
+                .addComponent(addBtn)
                 .addGap(18, 18, 18)
-                .addComponent(updateBtn1)
+                .addComponent(updateBtn)
                 .addGap(18, 18, 18)
-                .addComponent(deleteBtn1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
-                .addComponent(searchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteBtn)
                 .addGap(18, 18, 18)
-                .addComponent(searchBtn1)
-                .addContainerGap())
+                .addComponent(openBtn)
+                .addGap(80, 80, 80)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(searchBtn))
         );
         controlButtonPnl1Layout.setVerticalGroup(
             controlButtonPnl1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(controlButtonPnl1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(controlButtonPnl1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchBtn1)
-                    .addGroup(controlButtonPnl1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(searchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlButtonPnl1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(controlButtonPnl1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addBtn1)
-                            .addComponent(updateBtn1)
-                            .addComponent(deleteBtn1))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(controlButtonPnl1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(deleteBtn)
+                    .addComponent(updateBtn)
+                    .addComponent(addBtn)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBtn)
+                    .addComponent(openBtn))
                 .addContainerGap())
         );
 
@@ -122,29 +122,30 @@ public class CompetitorsPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tableScrlPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
             .addComponent(controlButtonPnl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tableScrlPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(controlButtonPnl1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(controlButtonPnl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tableScrlPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                .addComponent(tableScrlPnl, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn1;
+    private javax.swing.JButton addBtn;
     private javax.swing.JPanel controlButtonPnl1;
-    private javax.swing.JButton deleteBtn1;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton searchBtn1;
-    private javax.swing.JTextField searchField1;
+    private javax.swing.JButton openBtn;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchField;
     private javax.swing.JTable table;
     private javax.swing.JScrollPane tableScrlPnl;
-    private javax.swing.JButton updateBtn1;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
     private void refreshCompetitionsView() {

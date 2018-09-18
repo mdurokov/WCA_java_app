@@ -179,6 +179,8 @@ public class Competition extends Entity implements Serializable{
     public void setLongitude(BigInteger longitude) {
         this.longitude = longitude;
     }    
-    
+
+   
+
     
 }

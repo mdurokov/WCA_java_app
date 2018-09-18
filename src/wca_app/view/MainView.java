@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import wca_app.model.Operator;
-import wca_app.view.panel.CompetitionsPanel;
+import wca_app.view.Competition.CompetitionsPanel;
 import wca_app.view.panel.CompetitorsPanel;
 import wca_app.view.panel.ResultsPanel;
 import wca_app.view.panel.ScramblesPanel;
@@ -19,10 +19,10 @@ import wca_app.view.panel.ScramblesPanel;
 
 public class MainView extends javax.swing.JFrame {
     
-    private JPanel competitionsPanel;
-    private JPanel competitorsPanel;
-    private JPanel resultsPanel;
-    private JPanel scramblesPanel;
+    private CompetitionsPanel competitionsPanel;
+    private CompetitorsPanel competitorsPanel;
+    private ResultsPanel resultsPanel;
+    private ScramblesPanel scramblesPanel;
     private Operator operator;
     private Border loweredBorder = BorderFactory.createLoweredBevelBorder();
     private Border raisedBorder = BorderFactory.createRaisedBevelBorder();

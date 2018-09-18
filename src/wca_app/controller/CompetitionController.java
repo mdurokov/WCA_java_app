@@ -17,12 +17,15 @@ public class CompetitionController extends Controller implements ControllerInter
 
     @Override
     public Competition add(Competition entity) throws CustomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        saveEntity(entity);
+        return entity;
+        
     }
 
     @Override
     public Competition update(Competition entity) throws CustomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        saveEntity(entity);
+        return entity;
     }
 
 }

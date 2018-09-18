@@ -58,11 +58,15 @@ public class CompetitorTableModel extends AbstractTableModel{
             case LAST_NAME_COL:
                 return tempCompetitor.getLastName();
             case GENDER_COL:
-                return tempCompetitor.getGender();
+                if(tempCompetitor.getGender() == 'M'){
+                    return "Male";
+                }else{
+                    return "Female";
+                }
             case TAG_COL:
                 return tempCompetitor.getTag();
             case COUNTRY_ID_COL:
-                return tempCompetitor.getCountry_id();
+                return tempCompetitor.getCountry_id().getName();
             case OBJECT_COL:
                 return tempCompetitor;
             default:

@@ -29,7 +29,7 @@ public class Result extends Entity implements Serializable{
     @JoinColumn(name="format_id", nullable=false)
     private Format format_id;
     @Column(nullable=true)
-    private int pos;
+    private int position;
     @Column(nullable=true)
     private int value1;
     @Column(nullable=true)
@@ -45,13 +45,16 @@ public class Result extends Entity implements Serializable{
     public Result() {
     }
 
-    public Result(Competition competition_id, Event event_id, RoundType roundType_id, Competitor competitor_id, Format format_id, int pos, int value1, int value2, int value3, int value4, int value5) {
+    public Result(Competition competition_id, Event event_id,
+            RoundType roundType_id, Competitor competitor_id,
+            Format format_id, int position, int value1, int value2,
+            int value3, int value4, int value5) {
         this.competition_id = competition_id;
         this.event_id = event_id;
         this.roundType_id = roundType_id;
         this.competitor_id = competitor_id;
         this.format_id = format_id;
-        this.pos = pos;
+        this.position = position;
         this.value1 = value1;
         this.value2 = value2;
         this.value3 = value3;
@@ -83,11 +86,11 @@ public class Result extends Entity implements Serializable{
         this.roundType_id = roundType_id;
     }
  
-    public Competitor getPerson_id() {
+    public Competitor getCompetitor_id() {
         return competitor_id;
     }
 
-    public void setPerson_id(Competitor competitor_id) {
+    public void setCompetitor_id(Competitor competitor_id) {
         this.competitor_id = competitor_id;
     }
 
@@ -99,12 +102,12 @@ public class Result extends Entity implements Serializable{
         this.format_id = format_id;
     }
 
-    public int getPos() {
-        return pos;
+    public int getPosition() {
+        return position;
     }
 
-    public void setPos(int pos) {
-        this.pos = pos;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public int getValue1() {

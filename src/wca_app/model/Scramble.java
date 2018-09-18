@@ -76,7 +76,7 @@ public class Scramble extends Entity implements Serializable{
         this.group = group;
     }
 
-    public boolean isIsExtra() {
+    public boolean getIsExtra() {
         return isExtra;
     }
 

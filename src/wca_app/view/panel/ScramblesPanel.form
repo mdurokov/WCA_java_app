@@ -21,16 +21,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="controlButtonPnl1" alignment="0" max="32767" attributes="0"/>
-          <Component id="tableScrlPnl" alignment="0" max="32767" attributes="0"/>
+          <Component id="tableScrlPnl" pref="825" max="32767" attributes="0"/>
+          <Component id="controlButtonPnl1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="controlButtonPnl1" min="-2" max="-2" attributes="0"/>
+              <Component id="controlButtonPnl1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tableScrlPnl" pref="382" max="32767" attributes="0"/>
+              <Component id="tableScrlPnl" min="-2" pref="382" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,40 +69,34 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="addBtn1" min="-2" max="-2" attributes="0"/>
+                  <Component id="addBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="updateBtn1" min="-2" max="-2" attributes="0"/>
+                  <Component id="updateBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="deleteBtn1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="80" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="140" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                  <Component id="searchField1" min="-2" pref="200" max="-2" attributes="0"/>
+                  <Component id="deleteBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="searchBtn1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="openBtn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="96" max="32767" attributes="0"/>
+                  <Component id="searchField" min="-2" pref="200" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="searchBtn" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="searchBtn1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="searchField1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="addBtn1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="updateBtn1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="deleteBtn1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="deleteBtn" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateBtn" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="addBtn" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="searchField" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="searchBtn" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="openBtn" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -110,24 +104,24 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="searchField1">
+        <Component class="javax.swing.JTextField" name="searchField">
         </Component>
-        <Component class="javax.swing.JButton" name="searchBtn1">
+        <Component class="javax.swing.JButton" name="searchBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="addBtn1">
+        <Component class="javax.swing.JButton" name="addBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add New"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="updateBtn1">
+        <Component class="javax.swing.JButton" name="updateBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Update"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="deleteBtn1">
+        <Component class="javax.swing.JButton" name="deleteBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>
@@ -135,6 +129,11 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Scrambles"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="openBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Open"/>
           </Properties>
         </Component>
       </SubComponents>
