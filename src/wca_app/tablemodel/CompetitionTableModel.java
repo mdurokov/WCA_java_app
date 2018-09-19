@@ -12,17 +12,17 @@ import wca_app.model.Continent;
 public class CompetitionTableModel extends AbstractTableModel{
     
     public static final int OBJECT_COL = -1;
-    public static final int ID_COL = 0;
-    public static final int NAME_COL = 1;
-    public static final int CITY_COL = 2;
-    public static final int COUNTRY_COL = 3;
-    public static final int START_DATE_COL = 4;
-    public static final int END_DATE_COL = 5;
-    public static final int VENUE_ADDRESS_COL = 6;
+    public static final int ID_COL = 6;
+    public static final int NAME_COL = 0;
+    public static final int CITY_COL = 1;
+    public static final int COUNTRY_COL = 2;
+    public static final int START_DATE_COL = 3;
+    public static final int END_DATE_COL = 4;
+    public static final int VENUE_ADDRESS_COL = 5;
     
     //  Setting column names in view table
     private static final String[] columnNames = 
-        {"id", "Name", "City", "Country", "Start date", "End date", "Address"};
+        {"Name", "City", "Country", "Start date", "End date", "Address"};
     
     private List<Competition> competitions;
     

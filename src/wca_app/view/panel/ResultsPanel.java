@@ -155,6 +155,9 @@ public class ResultsPanel extends javax.swing.JPanel {
             List<Result> results = resultController.getEntities();
             ResultTableModel model = new ResultTableModel(results);
             table.setModel(model);
+            if(model.getRowCount()>0){
+                table.setRowSelectionInterval(0, 0);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }

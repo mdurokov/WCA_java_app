@@ -10,7 +10,8 @@ import javax.swing.JOptionPane;
 import wca_app.controller.CompetitionController;
 import wca_app.model.Competition;
 import wca_app.tablemodel.CompetitionTableModel;
-import wca_app.view.Competition.CompetitionAddFrame;
+import wca_app.util.HibernateUtil;
+import wca_app.view.DeleteProgresForm;
 
 /**
  *
@@ -19,7 +20,9 @@ import wca_app.view.Competition.CompetitionAddFrame;
 public class CompetitionsPanel extends javax.swing.JPanel {
 
     private CompetitionController competitionController;
-    private CompetitionAddFrame competitionFrame;
+    private CompetitionAddFrame competitionAddFrame;
+    private CompetitionUpdateFrame competitionUpdateFrame;
+
     /**
      * Creates new form CompetitionsPanel
      */
@@ -29,7 +32,8 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         try {
             competitionController = new CompetitionController();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: " + e, "Error", 
+                    JOptionPane.ERROR_MESSAGE);
         }
         refreshCompetitionsView();
     }
@@ -73,7 +77,18 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         table.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tableScrlPnl.setViewportView(table);
 
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFieldKeyReleased(evt);
+            }
+        });
+
         searchBtn.setText("Search");
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
 
         addBtn.setText("Add New");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -83,8 +98,20 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         });
 
         updateBtn.setText("Update");
+        updateBtn.setEnabled(false);
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setText("Delete");
+        deleteBtn.setEnabled(false);
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Competitions");
 
@@ -141,19 +168,110 @@ public class CompetitionsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        competitionFrame = new CompetitionAddFrame();
-        competitionFrame.setVisible(true);
+        competitionAddFrame = new CompetitionAddFrame();
+        competitionAddFrame.setVisible(true);
+        competitionAddFrame
+                .addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event
+                            .WindowEvent windowEvent) {
+                        refreshCompetitionsView();
+                    }
+                });
     }//GEN-LAST:event_addBtnActionPerformed
 
-     private void refreshCompetitionsView(){
-        try {
-            List<Competition> competitions = competitionController.getEntities();
-            CompetitionTableModel model = new CompetitionTableModel(competitions);
-            table.setModel(model);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        int row = table.getSelectedRow();
+        Competition competition = (Competition) table.getValueAt(row,
+                CompetitionTableModel.OBJECT_COL);
+        competitionUpdateFrame = new CompetitionUpdateFrame(competition);
+        competitionUpdateFrame.setVisible(true);
+        competitionUpdateFrame
+                .addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event
+                            .WindowEvent windowEvent) {
+                        refreshCompetitionsView();
+                    }
+                });
+    }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        if (table.getSelectedRows().length == 1) {
+            try {
+                Competition competition = (Competition) table
+                        .getValueAt(table.getSelectedRow(),
+                                CompetitionTableModel.OBJECT_COL);
+                competitionController.deleteEntity(competition);
+            } catch (Exception ex) {
+                HibernateUtil.getSession().clear();
+                JOptionPane.showMessageDialog(getRootPane(), "Competition "
+                        + table.getSelectedRow()
+                        + " can't be deleted");
+            }
+            refreshCompetitionsView();
+        } else {
+            new MultiDelete().start();
         }
-     }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        refreshCompetitionsView();
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
+        refreshCompetitionsView();
+    }//GEN-LAST:event_searchFieldKeyReleased
+
+    public class MultiDelete extends Thread {
+
+        public void run() {
+            int max = table.getSelectedRowCount();
+            int j = 0;
+            DeleteProgresForm deleteForm = new DeleteProgresForm(max);
+            deleteForm.setVisible(true);
+            for(int i : table.getSelectedRows()){
+                Competition competition = (Competition)
+                        table.getValueAt(i,CompetitionTableModel.OBJECT_COL);
+                j++;
+                deleteForm.changeAppearance(j, max, competition);
+                try {
+                    competitionController.deleteEntity(competition);
+                } catch (Exception e) {
+                    HibernateUtil.getSession().clear();
+                }
+            }try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+            }
+            
+            deleteForm.dispose();
+            refreshCompetitionsView();
+        }
+    }
+
+    private void refreshCompetitionsView() {
+        try {
+            List<Competition> competitions
+                    = competitionController.getEntities(searchField.getText());
+            CompetitionTableModel model
+                    = new CompetitionTableModel(competitions);
+            table.setModel(model);
+            if (model.getRowCount() > 0) {
+                table.setRowSelectionInterval(0, 0);
+                updateBtn.setEnabled(true);
+                deleteBtn.setEnabled(true);
+            }else{
+                updateBtn.setEnabled(false);
+                deleteBtn.setEnabled(false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JPanel controlButtonPnl1;

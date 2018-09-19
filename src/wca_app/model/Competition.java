@@ -27,7 +27,7 @@ public class Competition extends Entity implements Serializable{
     private Date startDate;
     @Column(nullable=false)
     private Date endDate;
-    private String eventSpecs;
+    private String specification;
     private String wcaDelegate;
     private String organiser;
     private String venue;
@@ -100,12 +100,12 @@ public class Competition extends Entity implements Serializable{
         this.endDate = endDate;
     }
 
-    public String getEventSpecs() {
-        return eventSpecs;
+    public String getSpecification() {
+        return specification;
     }
 
-    public void setEventSpecs(String eventSpecs) {
-        this.eventSpecs = eventSpecs;
+    public void setSpecification(String specification) {
+        this.specification = specification;
     }
 
     public String getWcaDelegate() {

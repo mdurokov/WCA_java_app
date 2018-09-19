@@ -153,6 +153,9 @@ public class CompetitorsPanel extends javax.swing.JPanel {
             List<Competitor> competitors = competitorController.getEntities();
             CompetitorTableModel model = new CompetitorTableModel(competitors);
             table.setModel(model);
+            if(model.getRowCount()>0){
+                table.setRowSelectionInterval(0, 0);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }

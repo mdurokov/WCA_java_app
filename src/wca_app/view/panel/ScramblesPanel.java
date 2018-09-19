@@ -153,6 +153,9 @@ public class ScramblesPanel extends javax.swing.JPanel {
             List<Scramble> scrambles = scramblesController.getEntities();
             ScrambleTableModel model = new ScrambleTableModel(scrambles);
             table.setModel(model);
+            if(model.getRowCount()>0){
+                table.setRowSelectionInterval(0, 0);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }

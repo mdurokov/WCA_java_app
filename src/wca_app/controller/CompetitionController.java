@@ -8,11 +8,18 @@ import wca_app.util.CustomException;
 /**
  * @author Mata
  */
-public class CompetitionController extends Controller implements ControllerInterface<Competition>{
+public class CompetitionController extends Controller 
+        implements ControllerInterface<Competition>{
 
     @Override
     public List<Competition> getEntities() {
         return session.createQuery("From Competition").list();
+    }
+    
+    public List<Competition> getEntities(String condition) {
+        return session.createQuery("From Competition where name like"
+                + " :condition").setString("condition", '%' + condition + '%')
+                .list();
     }
 
     @Override

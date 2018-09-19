@@ -12,21 +12,22 @@ import wca_app.controller.CompetitionController;
 import wca_app.controller.CountryController;
 import wca_app.model.Competition;
 import wca_app.model.Country;
-import wca_app.view.MainView;
 
 /**
  *
  * @author Mata
  */
-public class CompetitionAddFrame extends javax.swing.JFrame {
+public class CompetitionUpdateFrame extends javax.swing.JFrame {
 
     private Competition entity;
     private CompetitionController controller;
             
-    public CompetitionAddFrame() {
+    public CompetitionUpdateFrame(Competition competition) {
         initComponents();
         controller = new CompetitionController();
         loadCountries();
+        loadEntityProperties(competition);
+        
     }
 
     /**
@@ -358,14 +359,13 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        entity = new Competition();
         if(!fillEntityProperties()){
             return;
         }
         try {
-            controller.add(entity);
-            dispose();
             
+            controller.update(entity);
+            dispose();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -460,6 +460,33 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
         DefaultComboBoxModel<Country> model = new DefaultComboBoxModel<>();
         countryController.getEntities().forEach((s) -> {model.addElement(s);});
         countryCmb.setModel(model);
+    }
+
+    private void loadEntityProperties(Competition competition) {
+        entity = competition;
+        nameField.setText(competition.getName());
+        cityField.setText(competition.getCity());
+        startDateDtp.setDate(competition.getStartDate());
+        endDateDtp.setDate(competition.getEndDate());
+        cellNameField.setText(competition.getCellName());
+        countryCmb.setSelectedItem(competition.getCountry_id());
+        if(!("null".equals(String.valueOf(competition.getLatitude())))){
+            latitudeField.setText(String.valueOf(competition.getLatitude()));
+        }else{
+            latitudeField.setText("");
+        }
+        if(!("null".equals(String.valueOf(competition.getLongitude())))){
+            longitudeField.setText(String.valueOf(competition.getLongitude()));
+        }else{
+            latitudeField.setText("");
+        }
+        organiserField.setText(competition.getOrganiser());
+        venueField.setText(competition.getVenue());
+        venueDetailsField.setText(competition.getVenueDetails());
+        venueAddressField.setText(competition.getVenueAddress());
+        wcaDelegateField.setText(competition.getWcaDelegate());
+        informationTxt.setText(competition.getInformation());
+        specificationTxt.setText(competition.getSpecification());
     }
 
 }

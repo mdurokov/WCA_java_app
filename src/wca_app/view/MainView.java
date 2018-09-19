@@ -236,7 +236,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel viewPnl;
     // End of variables declaration//GEN-END:variables
 
-    private void setPanel(JPanel panel) {
+    public void setPanel(JPanel panel) {
         viewPnl.removeAll();
         viewPnl.add(panel);
         panel.setSize(viewPnl.getSize());
