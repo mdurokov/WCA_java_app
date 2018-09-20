@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import wca_app.controller.ResultsController;
 import wca_app.model.Competitor;
+import wca_app.model.Operator;
 import wca_app.model.Result;
 import wca_app.tablemodel.CompetitorTableModel;
 import wca_app.tablemodel.ResultTableModel;
@@ -20,12 +21,15 @@ import wca_app.tablemodel.ResultTableModel;
 public class ResultsPanel extends javax.swing.JPanel {
 
     private ResultsController resultController;
+    
+    private Operator operator;
     /**
      * Creates new form CompetitionsPanel
      */
-    public ResultsPanel() {
+    public ResultsPanel(Operator operator) {
         initComponents();
         setName("Results");
+        this.operator = operator;
         try {
             resultController = new ResultsController();
         } catch (Exception e) {

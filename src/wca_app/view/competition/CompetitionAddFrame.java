@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wca_app.view.Competition;
+package wca_app.view.competition;
 
 import java.math.BigInteger;
 import javax.swing.DefaultComboBoxModel;
@@ -12,7 +12,6 @@ import wca_app.controller.CompetitionController;
 import wca_app.controller.CountryController;
 import wca_app.model.Competition;
 import wca_app.model.Country;
-import wca_app.view.MainView;
 
 /**
  *
@@ -22,9 +21,12 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
 
     private Competition entity;
     private CompetitionController controller;
-            
-    public CompetitionAddFrame() {
+    private CompetitionsPanel panel;
+
+    public CompetitionAddFrame(CompetitionsPanel panel) {
         initComponents();
+        getRootPane().setDefaultButton(saveBtn);
+        this.panel = panel;
         controller = new CompetitionController();
         loadCountries();
     }
@@ -340,81 +342,39 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        if(JOptionPane.showConfirmDialog(getRootPane(),
+        if (JOptionPane.showConfirmDialog(getRootPane(),
                 "Changes not saved! Do you want to proceed?", "Exit",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
-                JOptionPane.YES_OPTION){
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                == JOptionPane.YES_OPTION) {
             dispose();
         }
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if(JOptionPane.showConfirmDialog(getRootPane(),
+        if (JOptionPane.showConfirmDialog(getRootPane(),
                 "Changes not saved! Do you want to proceed?", "Exit",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ==
-                JOptionPane.YES_OPTION){
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+                == JOptionPane.YES_OPTION) {
             dispose();
         }
     }//GEN-LAST:event_formWindowClosing
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         entity = new Competition();
-        if(!fillEntityProperties()){
+        if (!fillEntityProperties()) {
             return;
         }
         try {
             controller.add(entity);
+            panel.refreshEntityView();
             dispose();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_saveBtnActionPerformed
 
-    private boolean fillEntityProperties(){
-        entity.setName(nameField.getText());
-        System.out.println(entity.getName());
-        entity.setCity(cityField.getText());
-        System.out.println(entity.getCity());
-        entity.setStartDate(startDateDtp.getDate());
-        System.out.println(entity.getStartDate());
-        entity.setEndDate(endDateDtp.getDate());
-        System.out.println(entity.getEndDate());
-        entity.setCountry_id(countryCmb.getItemAt(countryCmb.getSelectedIndex()));
-        System.out.println(entity.getCountry_id());
-        entity.setCellName(cellNameField.getText());
-        System.out.println(entity.getCellName());
-        
-        if(!(latitudeField.getText().trim().isEmpty() || latitudeField.getText() == null)){
-            entity.setLatitude(new BigInteger(latitudeField.getText()));
-        }
-        if(!(longitudeField.getText().trim().isEmpty() || longitudeField.getText() == null)){
-            entity.setLongitude(new BigInteger(longitudeField.getText()));
-        }
-        if(!(organiserField.getText().trim().isEmpty() || organiserField.getText() == null)){
-            entity.setOrganiser(organiserField.getText());
-        }
-        if(!(venueField.getText().trim().isEmpty() || venueField.getText() == null)){
-            entity.setVenue(venueField.getText());
-        }
-        if(!(venueDetailsField.getText().trim().isEmpty() || venueDetailsField.getText() == null)){
-            entity.setVenueDetails(venueDetailsField.getText());
-        }
-        if(!(venueAddressField.getText().trim().isEmpty() || venueAddressField.getText() == null)){
-            entity.setVenueAddress(venueAddressField.getText());
-        }
-        if(!(wcaDelegateField.getText().trim().isEmpty() || wcaDelegateField.getText() == null)){
-            entity.setWcaDelegate(wcaDelegateField.getText());
-        }
-        if(!(informationTxt.getText().trim().isEmpty() || informationTxt.getText() == null)){
-            entity.setInformation(informationTxt.getText());
-        }
-        if(!(specificationTxt.getText().trim().isEmpty() || specificationTxt.getText() == null)){
-            entity.setSpecification(specificationTxt.getText());
-        }
-        return true;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JTextField cellNameField;
@@ -454,12 +414,52 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
     private javax.swing.JTextField wcaDelegateField;
     private javax.swing.JLabel wcaDelegateLbl;
     // End of variables declaration//GEN-END:variables
-    
-    private void loadCountries(){
+
+    private void loadCountries() {
         CountryController countryController = new CountryController();
         DefaultComboBoxModel<Country> model = new DefaultComboBoxModel<>();
-        countryController.getEntities().forEach((s) -> {model.addElement(s);});
+        countryController.getEntities().forEach((s) -> {
+            model.addElement(s);
+        });
         countryCmb.setModel(model);
+    }
+
+    private boolean fillEntityProperties() {
+        entity.setName(nameField.getText());
+        entity.setCity(cityField.getText());
+        entity.setStartDate(startDateDtp.getDate());
+        entity.setEndDate(endDateDtp.getDate());
+        entity.setCountry_id(countryCmb.getItemAt(countryCmb.getSelectedIndex()));
+        entity.setCellName(cellNameField.getText());
+
+        if (!(latitudeField.getText().trim().isEmpty() || latitudeField.getText() == null)) {
+            entity.setLatitude(new BigInteger(latitudeField.getText()));
+        }
+        if (!(longitudeField.getText().trim().isEmpty() || longitudeField.getText() == null)) {
+            entity.setLongitude(new BigInteger(longitudeField.getText()));
+        }
+        if (!(organiserField.getText().trim().isEmpty() || organiserField.getText() == null)) {
+            entity.setOrganiser(organiserField.getText());
+        }
+        if (!(venueField.getText().trim().isEmpty() || venueField.getText() == null)) {
+            entity.setVenue(venueField.getText());
+        }
+        if (!(venueDetailsField.getText().trim().isEmpty() || venueDetailsField.getText() == null)) {
+            entity.setVenueDetails(venueDetailsField.getText());
+        }
+        if (!(venueAddressField.getText().trim().isEmpty() || venueAddressField.getText() == null)) {
+            entity.setVenueAddress(venueAddressField.getText());
+        }
+        if (!(wcaDelegateField.getText().trim().isEmpty() || wcaDelegateField.getText() == null)) {
+            entity.setWcaDelegate(wcaDelegateField.getText());
+        }
+        if (!(informationTxt.getText().trim().isEmpty() || informationTxt.getText() == null)) {
+            entity.setInformation(informationTxt.getText());
+        }
+        if (!(specificationTxt.getText().trim().isEmpty() || specificationTxt.getText() == null)) {
+            entity.setSpecification(specificationTxt.getText());
+        }
+        return true;
     }
 
 }

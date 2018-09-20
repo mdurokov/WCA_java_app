@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wca_app.view.Competition;
+package wca_app.view.competitors;
 
 import java.util.List;
 import javax.swing.JOptionPane;
-import wca_app.controller.CompetitionController;
-import wca_app.model.Competition;
-import wca_app.tablemodel.CompetitionTableModel;
+import wca_app.controller.CompetitorController;
+import wca_app.model.Competitor;
+import wca_app.model.Operator;
+import wca_app.tablemodel.CompetitorTableModel;
 import wca_app.util.HibernateUtil;
 import wca_app.view.DeleteProgresForm;
 
@@ -17,25 +18,27 @@ import wca_app.view.DeleteProgresForm;
  *
  * @author Mata
  */
-public class CompetitionsPanel extends javax.swing.JPanel {
+public class CompetitorsPanel extends javax.swing.JPanel {
 
-    private CompetitionController competitionController;
-    private CompetitionAddFrame competitionAddFrame;
-    private CompetitionUpdateFrame competitionUpdateFrame;
-
+    private CompetitorController controller;
+    private CompetitorAddFrame addFrame;
+    private CompetitorUpdateFrame updateFrame;
+    private CompetitorTableModel model;
+    private Competitor competitor;
+    private Operator operator;
     /**
      * Creates new form CompetitionsPanel
      */
-    public CompetitionsPanel() {
+    public CompetitorsPanel(Operator operator) {
         initComponents();
-        setName("Competitions");
+        setName("Competitors");
+        this.operator = operator;
         try {
-            competitionController = new CompetitionController();
+            controller = new CompetitorController();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error", 
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
-        refreshCompetitionsView();
+        refreshEntityView();
     }
 
     /**
@@ -98,7 +101,6 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         });
 
         updateBtn.setText("Update");
-        updateBtn.setEnabled(false);
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateBtnActionPerformed(evt);
@@ -106,14 +108,13 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         });
 
         deleteBtn.setText("Delete");
-        deleteBtn.setEnabled(false);
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Competitions");
+        jLabel1.setText("Competitors");
 
         openBtn.setText("Open");
 
@@ -131,7 +132,7 @@ public class CompetitionsPanel extends javax.swing.JPanel {
                 .addComponent(openBtn)
                 .addGap(80, 80, 80)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(searchBtn))
@@ -155,8 +156,8 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tableScrlPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
             .addComponent(controlButtonPnl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tableScrlPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,110 +169,54 @@ public class CompetitionsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        competitionAddFrame = new CompetitionAddFrame();
-        competitionAddFrame.setVisible(true);
-        competitionAddFrame
-                .addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosed(java.awt.event
-                            .WindowEvent windowEvent) {
-                        refreshCompetitionsView();
-                    }
-                });
+        addFrame = new CompetitorAddFrame(this);
+        addFrame.setVisible(true);        
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        int row = table.getSelectedRow();
-        Competition competition = (Competition) table.getValueAt(row,
-                CompetitionTableModel.OBJECT_COL);
-        competitionUpdateFrame = new CompetitionUpdateFrame(competition);
-        competitionUpdateFrame.setVisible(true);
-        competitionUpdateFrame
-                .addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosed(java.awt.event
-                            .WindowEvent windowEvent) {
-                        refreshCompetitionsView();
-                    }
-                });
+        competitor = (Competitor) table.getValueAt(table.getSelectedRow(), model.OBJECT_COL);
+        updateFrame = new CompetitorUpdateFrame(this, competitor);
+        updateFrame.setVisible(true);
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         if (table.getSelectedRows().length == 1) {
             try {
-                Competition competition = (Competition) table
+                Competitor competitor = (Competitor) table
                         .getValueAt(table.getSelectedRow(),
-                                CompetitionTableModel.OBJECT_COL);
-                competitionController.deleteEntity(competition);
+                                CompetitorTableModel.OBJECT_COL);
+                controller.deleteEntity(competitor);
             } catch (Exception ex) {
                 HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Competition "
-                        + table.getSelectedRow()
+                JOptionPane.showMessageDialog(getRootPane(), "Competitor "
+                        + table.getValueAt(table.getSelectedRow(),
+                                CompetitorTableModel.FIRST_NAME_COL) + " "
+                        + table.getValueAt(table.getSelectedRow(),
+                                CompetitorTableModel.LAST_NAME_COL)
                         + " can't be deleted");
             }
-            refreshCompetitionsView();
+            refreshEntityView();
         } else {
-            new MultiDelete().start();
+            if(JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
+                    + " want to delete selected items?", "Confirm", JOptionPane
+            .YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane
+                    .YES_OPTION){
+                new MultiDelete().start();
+            }
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
-        refreshCompetitionsView();
+        refreshEntityView();
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
-        refreshCompetitionsView();
+        if(evt.getKeyCode()==10){
+            refreshEntityView();
+        }
     }//GEN-LAST:event_searchFieldKeyReleased
 
-    public class MultiDelete extends Thread {
 
-        public void run() {
-            int max = table.getSelectedRowCount();
-            int j = 0;
-            DeleteProgresForm deleteForm = new DeleteProgresForm(max);
-            deleteForm.setVisible(true);
-            for(int i : table.getSelectedRows()){
-                Competition competition = (Competition)
-                        table.getValueAt(i,CompetitionTableModel.OBJECT_COL);
-                j++;
-                deleteForm.changeAppearance(j, max, competition);
-                try {
-                    competitionController.deleteEntity(competition);
-                } catch (Exception e) {
-                    HibernateUtil.getSession().clear();
-                }
-            }try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-            }
-            
-            deleteForm.dispose();
-            refreshCompetitionsView();
-        }
-    }
-
-    private void refreshCompetitionsView() {
-        try {
-            List<Competition> competitions
-                    = competitionController.getEntities(searchField.getText());
-            CompetitionTableModel model
-                    = new CompetitionTableModel(competitions);
-            table.setModel(model);
-            if (model.getRowCount() > 0) {
-                table.setRowSelectionInterval(0, 0);
-                updateBtn.setEnabled(true);
-                deleteBtn.setEnabled(true);
-            }else{
-                updateBtn.setEnabled(false);
-                deleteBtn.setEnabled(false);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JPanel controlButtonPnl1;
@@ -284,4 +229,56 @@ public class CompetitionsPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane tableScrlPnl;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
+
+    public class MultiDelete extends Thread {
+
+        public void run() {
+            int max = table.getSelectedRowCount();
+            int j = 0;
+            DeleteProgresForm deleteForm = new DeleteProgresForm(max);
+            deleteForm.setVisible(true);
+            for (int i : table.getSelectedRows()) {
+                Competitor competitor = (Competitor) table.getValueAt(i, CompetitorTableModel.OBJECT_COL);
+                j++;
+                deleteForm.changeAppearance(j, max, competitor);
+                try {
+                    controller.deleteEntity(competitor);
+                } catch (Exception e) {
+                    HibernateUtil.getSession().clear();
+                }
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            deleteForm.dispose();
+            refreshEntityView();
+        }
+    }
+    
+    protected void refreshEntityView() {
+        try {
+            List<Competitor> competitors = controller.getEntities();
+            CompetitorTableModel model = new CompetitorTableModel(competitors);
+            table.setModel(model);
+            if (operator.getIsAdmin()) {
+                if (model.getRowCount() > 0) {
+                    table.setRowSelectionInterval(0, 0);
+                    updateBtn.setEnabled(true);
+                    deleteBtn.setEnabled(true);
+                } else {
+                    updateBtn.setEnabled(false);
+                    deleteBtn.setEnabled(false);
+                }
+            } else {
+                addBtn.setEnabled(false);
+                updateBtn.setEnabled(false);
+                deleteBtn.setEnabled(false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

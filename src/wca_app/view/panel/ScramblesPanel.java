@@ -8,6 +8,7 @@ package wca_app.view.panel;
 import java.util.List;
 import javax.swing.JOptionPane;
 import wca_app.controller.ScramblesController;
+import wca_app.model.Operator;
 import wca_app.model.Scramble;
 import wca_app.tablemodel.ScrambleTableModel;
 
@@ -18,12 +19,15 @@ import wca_app.tablemodel.ScrambleTableModel;
 public class ScramblesPanel extends javax.swing.JPanel {
 
     private ScramblesController scramblesController;
+    
+    private Operator operator;
     /**
      * Creates new form CompetitionsPanel
      */
-    public ScramblesPanel() {
+    public ScramblesPanel(Operator operator) {
         initComponents();
         setName("Scrambles");
+        this.operator = operator;
         try {
             scramblesController = new ScramblesController();
         } catch (Exception e) {

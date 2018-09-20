@@ -78,5 +78,7 @@ public class CompetitorTableModel extends AbstractTableModel{
     public Class getColumnClass(int col){
         return getValueAt(0, col).getClass();
     }
+    
+    
     //  END IMPLEMENTED ABSTRACT METHODS
 }

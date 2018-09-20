@@ -14,15 +14,23 @@ public class CompetitorController extends Controller implements ControllerInterf
     public List<Competitor> getEntities() {
         return session.createQuery("From Competitor").list();
     }
+    
+    public List<Competitor> getEntities(String condition) {
+        return session.createQuery("From Competitor where concat(firstName,"
+                + " lastName) like :condition").setString("condition", '%'
+                + condition + '%').list();
+    }
 
     @Override
     public Competitor add(Competitor entity) throws CustomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        saveEntity(entity);
+        return entity;
     }
 
     @Override
     public Competitor update(Competitor entity) throws CustomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        saveEntity(entity);
+        return entity;
     }
 
 }

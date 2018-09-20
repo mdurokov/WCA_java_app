@@ -6,6 +6,7 @@
 package wca_app.view;
 
 import wca_app.model.Competition;
+import wca_app.model.Competitor;
 
 /**
  *
@@ -23,7 +24,14 @@ public class DeleteProgresForm extends javax.swing.JFrame {
 
     public void changeAppearance(int i, int max, Competition competition){
         deletePrb.setValue(i);
-        infoLbl.setText("Deleting: " + competition);
+        infoLbl.setText("Deleting: " + competition.getName());
+        percentageLbl.setText(i + "/" + max);
+    }
+    
+    public void changeAppearance(int i, int max, Competitor competitor){
+        deletePrb.setValue(i);
+        infoLbl.setText("Deleting: " + competitor.getFirstName() + " "
+                + competitor.getLastName());
         percentageLbl.setText(i + "/" + max);
     }
     /**

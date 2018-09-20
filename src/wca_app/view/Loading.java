@@ -29,17 +29,17 @@ public class Loading extends javax.swing.JFrame {
     private class ConnectToDatabase extends Thread {
         public void run(){
             Session s = HibernateUtil.getSession();
-           
+            
             List<Operator> lista = s.createQuery("From Operator").list();
             Operator operator = lista.isEmpty() ? null : lista.get(0);
-            
-                if (operator!=null && operator.getId() > 0) {
-                    new AutorizationForm().setVisible(true);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(getRootPane(), "There is no" + 
-                            " operator. Contact program developer");
-                }
+
+            if (operator != null && operator.getId() > 0) {
+                new AutorizationForm().setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(getRootPane(), "There is no"
+                        + " operator. Contact program developer");
+            }
         }
     }
     /**

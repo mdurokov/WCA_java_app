@@ -11,8 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import wca_app.model.Operator;
-import wca_app.view.Competition.CompetitionsPanel;
-import wca_app.view.panel.CompetitorsPanel;
+import wca_app.view.competition.CompetitionsPanel;
+import wca_app.view.competitors.CompetitorsPanel;
 import wca_app.view.panel.ResultsPanel;
 import wca_app.view.panel.ScramblesPanel;
 
@@ -35,10 +35,10 @@ public class MainView extends javax.swing.JFrame {
         }else{
             setTitle("WCA - World Cube Association");
         }
-        competitionsPanel = new CompetitionsPanel();
-        competitorsPanel = new CompetitorsPanel();
-        resultsPanel = new ResultsPanel();
-        scramblesPanel = new ScramblesPanel();
+        competitionsPanel = new CompetitionsPanel(operator);
+        competitorsPanel = new CompetitorsPanel(operator);
+        resultsPanel = new ResultsPanel(operator);
+        scramblesPanel = new ScramblesPanel(operator);
         setPanel(competitionsPanel);
         
         
@@ -65,6 +65,7 @@ public class MainView extends javax.swing.JFrame {
         viewPnl = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        logoutBtn = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -165,6 +166,15 @@ public class MainView extends javax.swing.JFrame {
         );
 
         jMenu1.setText("File");
+
+        logoutBtn.setText("Logout");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(logoutBtn);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -215,24 +225,24 @@ public class MainView extends javax.swing.JFrame {
         setPanel(scramblesPanel);
     }//GEN-LAST:event_scramblesBtnActionPerformed
 
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        dispose();
+        new AutorizationForm().setVisible(true);
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn;
     private javax.swing.JButton competitionsBtn;
     private javax.swing.JButton competitorsBtn;
-    private javax.swing.JPanel controlButtonPnl;
     private javax.swing.JPanel decorativePnl;
-    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel icon;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem logoutBtn;
     private javax.swing.JPanel menuPnl;
     private javax.swing.JButton optionsBtn;
     private javax.swing.JButton resultsBtn;
     private javax.swing.JButton scramblesBtn;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JTextField searchField;
-    private javax.swing.JButton updateBtn;
     private javax.swing.JPanel viewPnl;
     // End of variables declaration//GEN-END:variables
 
