@@ -12,6 +12,7 @@ import wca_app.controller.CompetitionController;
 import wca_app.controller.CountryController;
 import wca_app.model.Competition;
 import wca_app.model.Country;
+import wca_app.tablemodel.CompetitionTableModel;
 
 /**
  *
@@ -365,8 +366,15 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
             return;
         }
         try {
-            controller.add(entity);
+            Competition newCompetition = controller.add(entity);
             panel.refreshEntityView();
+            for(int i = 0; i < panel.getTable().getModel().getRowCount();i++){
+                if(panel.getTable().getValueAt(i, CompetitionTableModel.ID_COL)
+                        == newCompetition.getId()){
+                    panel.getTable().setRowSelectionInterval(i, i);
+                    break;
+                }
+            }
             dispose();
 
         } catch (Exception e) {

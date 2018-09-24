@@ -78,9 +78,7 @@ public class Competitor extends Entity implements Serializable{
 
     @Override
     public String toString() {
-        return "Person{id=" + getId() + "country_id=" + country_id + ", tag=" + 
-                tag + ", firstName=" + firstName + ", lastName=" + lastName + 
-                ", gender=" + gender + '}';
+        return getFirstName() + " " + getLastName();
     }
     
     

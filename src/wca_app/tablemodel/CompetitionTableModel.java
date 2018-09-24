@@ -12,7 +12,7 @@ import wca_app.model.Continent;
 public class CompetitionTableModel extends AbstractTableModel{
     
     public static final int OBJECT_COL = -1;
-    public static final int ID_COL = 6;
+    public static final int ID_COL = -2;
     public static final int NAME_COL = 0;
     public static final int CITY_COL = 1;
     public static final int COUNTRY_COL = 2;

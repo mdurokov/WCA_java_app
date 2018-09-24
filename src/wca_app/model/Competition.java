@@ -180,6 +180,13 @@ public class Competition extends Entity implements Serializable{
         this.longitude = longitude;
     }    
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+    
+    
+
    
 
     

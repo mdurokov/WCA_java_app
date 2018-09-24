@@ -13,18 +13,18 @@ import wca_app.model.Scramble;
 public class ScrambleTableModel extends AbstractTableModel{
     
     public static final int OBJECT_COL = -1;
-    public static final int ID_COL = 0;
-    public static final int COMPETITION_COL = 1;
-    public static final int EVENT_COL = 2;
-    public static final int ROUND_TYPE_COL = 3;
-    public static final int GROUP_COL = 4;
-    public static final int IS_EXTRA_COL = 5;
-    public static final int SCRAMBLE_NUM_COL = 6;
-    public static final int SCRAMBLE_COL = 7;
+    public static final int ID_COL = -2;
+    public static final int COMPETITION_COL = 0;
+    public static final int EVENT_COL = 1;
+    public static final int ROUND_TYPE_COL = 2;
+    public static final int GROUP_COL = 3;
+    public static final int IS_EXTRA_COL = 4;
+    public static final int SCRAMBLE_NUM_COL = 5;
+    public static final int SCRAMBLE_COL = 6;
     
     //  Setting column names in view table
     private static final String[] columnNames = 
-        {"id", "Competition", "Event", "Round Type", "Group", "Extra",
+        {"Competition", "Event", "Round Type", "Group", "Extra",
             "Scramble number", "Scramble"};
     
     private List<Scramble> scrambles;
@@ -76,11 +76,6 @@ public class ScrambleTableModel extends AbstractTableModel{
             default:
                 return tempScramble.toString();    
         }
-    }
-    
-    @Override
-    public Class getColumnClass(int col){
-        return getValueAt(0, col).getClass();
     }
     //  END IMPLEMENTED ABSTRACT METHODS
 }

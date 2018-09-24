@@ -70,9 +70,7 @@ public class RoundType extends Entity implements Serializable{
     
     @Override
     public String toString() {
-        return String.format
-            ("Round type [id=%s, rank=%s, name=%s, cellName=%s, final=%s]",
-                    getId(), rank, name, cellName, finale);
+        return getName();
     
     } 
     

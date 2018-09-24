@@ -37,8 +37,7 @@ public class Format extends Entity implements Serializable{
     
     @Override
     public String toString() {
-        return String.format
-            ("Format [id=%s, name=%s]",  getId(), name);
+        return getName();
     
     } 
     

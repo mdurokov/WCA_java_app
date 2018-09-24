@@ -7,6 +7,7 @@ package wca_app.view.competition;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import wca_app.controller.CompetitionController;
 import wca_app.model.Competition;
 import wca_app.model.Operator;
@@ -102,6 +103,11 @@ public class CompetitionsPanel extends javax.swing.JPanel {
 
         updateBtn.setText("Update");
         updateBtn.setEnabled(false);
+        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                updateBtnMouseEntered(evt);
+            }
+        });
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateBtnActionPerformed(evt);
@@ -198,10 +204,8 @@ public class CompetitionsPanel extends javax.swing.JPanel {
             }
             refreshEntityView();
         } else {
-            if(JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
-                    + " want to delete selected items?", "Confirm", JOptionPane
-            .YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane
-                    .YES_OPTION){
+            if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
+                    + " want to delete selected items?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
                 new MultiDelete().start();
             }
         }
@@ -216,6 +220,14 @@ public class CompetitionsPanel extends javax.swing.JPanel {
             refreshEntityView();
         }
     }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void updateBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseEntered
+        if (table.getSelectedRowCount()== 1) {
+            updateBtn.setEnabled(true);
+        } else {
+            updateBtn.setEnabled(false);
+        }
+    }//GEN-LAST:event_updateBtnMouseEntered
 
     public class MultiDelete extends Thread {
 
@@ -262,6 +274,7 @@ public class CompetitionsPanel extends javax.swing.JPanel {
                     deleteBtn.setEnabled(false);
                 }
             } else {
+                table.setRowSelectionInterval(0, 0);
                 addBtn.setEnabled(false);
                 updateBtn.setEnabled(false);
                 deleteBtn.setEnabled(false);
@@ -271,6 +284,10 @@ public class CompetitionsPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error: " + e, "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public JTable getTable() {
+        return table;
     }
 
 

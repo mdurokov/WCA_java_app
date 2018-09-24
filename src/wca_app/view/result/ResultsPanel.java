@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wca_app.view.panel;
+package wca_app.view.result;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import wca_app.controller.ResultsController;
-import wca_app.model.Competitor;
 import wca_app.model.Operator;
 import wca_app.model.Result;
-import wca_app.tablemodel.CompetitorTableModel;
 import wca_app.tablemodel.ResultTableModel;
+import wca_app.util.HibernateUtil;
+import wca_app.view.DeleteProgresForm;
+import wca_app.view.competition.CompetitionUpdateFrame;
 
 /**
  *
@@ -20,9 +22,11 @@ import wca_app.tablemodel.ResultTableModel;
  */
 public class ResultsPanel extends javax.swing.JPanel {
 
-    private ResultsController resultController;
-    
+    private ResultsController controller;
+    private ResultAddFrame addFrame;
+    private ResultUpdateFrame updateFrame;
     private Operator operator;
+    
     /**
      * Creates new form CompetitionsPanel
      */
@@ -31,11 +35,11 @@ public class ResultsPanel extends javax.swing.JPanel {
         setName("Results");
         this.operator = operator;
         try {
-            resultController = new ResultsController();
+            controller = new ResultsController();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
-        refreshResultsView();
+        refreshEntityView();
         
     }
 
@@ -78,13 +82,46 @@ public class ResultsPanel extends javax.swing.JPanel {
         table.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tableScrlPnl.setViewportView(table);
 
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFieldKeyReleased(evt);
+            }
+        });
+
         searchBtn.setText("Search");
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
 
         addBtn.setText("Add New");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         updateBtn.setText("Update");
+        updateBtn.setEnabled(false);
+        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                updateBtnMouseEntered(evt);
+            }
+        });
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setText("Delete");
+        deleteBtn.setEnabled(false);
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Results");
 
@@ -140,6 +177,59 @@ public class ResultsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        addFrame = new ResultAddFrame(this);
+        addFrame.setVisible(true);
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        int row = table.getSelectedRow();
+        Result entity = (Result) table.getValueAt(row,
+                ResultTableModel.OBJECT_COL);
+        updateFrame = new ResultUpdateFrame(this, entity);
+        updateFrame.setVisible(true);
+    }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        if (table.getSelectedRows().length == 1) {
+            try {
+                Result entity = (Result) table
+                        .getValueAt(table.getSelectedRow(),
+                                ResultTableModel.OBJECT_COL);
+                controller.deleteEntity(entity);
+            } catch (Exception ex) {
+                HibernateUtil.getSession().clear();
+                JOptionPane.showMessageDialog(getRootPane(), "Competition "
+                        + table.getSelectedRow()
+                        + " can't be deleted");
+            }
+            refreshEntityView();
+        } else {
+            if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
+                    + " want to delete selected items?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                new MultiDelete().start();
+            }
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        refreshEntityView();
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
+        if (evt.getKeyCode() == 10) {
+            refreshEntityView();
+        }
+    }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void updateBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseEntered
+        if (table.getSelectedRowCount()== 1) {
+            updateBtn.setEnabled(true);
+        } else {
+            updateBtn.setEnabled(false);
+        }
+    }//GEN-LAST:event_updateBtnMouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
@@ -154,17 +244,67 @@ public class ResultsPanel extends javax.swing.JPanel {
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
-    private void refreshResultsView() {
-        try {
-            List<Result> results = resultController.getEntities();
-            ResultTableModel model = new ResultTableModel(results);
-            table.setModel(model);
-            if(model.getRowCount()>0){
-                table.setRowSelectionInterval(0, 0);
+    public class MultiDelete extends Thread {
+
+        public void run() {
+            int max = table.getSelectedRowCount();
+            int j = 0;
+            DeleteProgresForm deleteForm = new DeleteProgresForm(max);
+            deleteForm.setVisible(true);
+            for (int i : table.getSelectedRows()) {
+                Result entity = (Result) table.getValueAt(i, ResultTableModel.OBJECT_COL);
+                j++;
+                deleteForm.changeAppearance(j, max, entity);
+                try {
+                    controller.deleteEntity(entity);
+                } catch (Exception e) {
+                    HibernateUtil.getSession().clear();
+                }
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            deleteForm.dispose();
+            refreshEntityView();
         }
     }
+    
+    protected void refreshEntityView() {
+        try {
+            List<Result> results
+                    = controller.getEntities(searchField.getText());
+            ResultTableModel model
+                    = new ResultTableModel(results);
+            table.setModel(model);
+            if (operator.getIsAdmin()) {
+                if (model.getRowCount() > 0) {
+                    table.setRowSelectionInterval(0, 0);
+                    updateBtn.setEnabled(true);
+                    deleteBtn.setEnabled(true);
+                } else {
+                    updateBtn.setEnabled(false);
+                    deleteBtn.setEnabled(false);
+                }
+            } else {
+                table.setRowSelectionInterval(0, 0);
+                addBtn.setEnabled(false);
+                updateBtn.setEnabled(false);
+                deleteBtn.setEnabled(false);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+    
+    
     
 }

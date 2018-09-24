@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import wca_app.model.Operator;
 import wca_app.view.competition.CompetitionsPanel;
-import wca_app.view.competitors.CompetitorsPanel;
-import wca_app.view.panel.ResultsPanel;
-import wca_app.view.panel.ScramblesPanel;
+import wca_app.view.competitor.CompetitorsPanel;
+import wca_app.view.result.ResultsPanel;
+import wca_app.view.scramble.ScramblesPanel;
 
 
 public class MainView extends javax.swing.JFrame {

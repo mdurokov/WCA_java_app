@@ -5,7 +5,6 @@
  */
 package wca_app.view.competition;
 
-import java.awt.event.ActionEvent;
 import java.math.BigInteger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -13,6 +12,7 @@ import wca_app.controller.CompetitionController;
 import wca_app.controller.CountryController;
 import wca_app.model.Competition;
 import wca_app.model.Country;
+import wca_app.tablemodel.CompetitionTableModel;
 
 /**
  *
@@ -24,14 +24,14 @@ public class CompetitionUpdateFrame extends javax.swing.JFrame {
     private CompetitionController controller;
     private CompetitionsPanel panel;
 
-    public CompetitionUpdateFrame(CompetitionsPanel panel, Competition competition) {
+    public CompetitionUpdateFrame(CompetitionsPanel panel, Competition entity) {
         initComponents();
         getRootPane().setDefaultButton(saveBtn);
         controller = new CompetitionController();
-        this.entity = competition;
+        this.entity = entity;
         this.panel = panel;
         loadCountries();
-        loadEntityProperties(competition);
+        loadEntityProperties(entity);
 
     }
 
@@ -289,11 +289,8 @@ public class CompetitionUpdateFrame extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addGroup(fieldsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(startDateDtp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(fieldsPnlLayout.createSequentialGroup()
-                                .addGroup(fieldsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(endDateDtp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cellNameField))
-                                .addGap(7, 7, 7)))
+                            .addComponent(endDateDtp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cellNameField))
                         .addGap(10, 10, 10)))
                 .addContainerGap())
         );
@@ -368,8 +365,15 @@ public class CompetitionUpdateFrame extends javax.swing.JFrame {
             return;
         }
         try {
-            controller.update(entity);
+            Competition newCompetition = controller.update(entity);
             panel.refreshEntityView();
+            for(int i = 0; i < panel.getTable().getModel().getRowCount();i++){
+                if(panel.getTable().getValueAt(i, CompetitionTableModel.ID_COL)
+                        == newCompetition.getId()){
+                    panel.getTable().setRowSelectionInterval(i, i);
+                    break;
+                }
+            }
             dispose();
         } catch (Exception e) {
             e.printStackTrace();

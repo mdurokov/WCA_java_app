@@ -14,15 +14,23 @@ public class ResultsController extends Controller implements ControllerInterface
     public List<Result> getEntities() {
         return session.createQuery("From Result").list();
     }
+    
+    public List<Result> getEntities(String condition) {
+        return session.createQuery("From Result where id like"
+                + " :condition").setString("condition", '%' + condition + '%')
+                .list();
+    }
 
     @Override
     public Result add(Result entity) throws CustomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        saveEntity(entity);
+        return entity;
     }
 
     @Override
     public Result update(Result entity) throws CustomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        saveEntity(entity);
+        return entity;
     }
 
 }

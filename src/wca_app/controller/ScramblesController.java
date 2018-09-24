@@ -14,15 +14,23 @@ public class ScramblesController extends Controller implements ControllerInterfa
     public List<Scramble> getEntities() {
         return session.createQuery("From Scramble").list();
     }
+    
+    public List<Scramble> getEntities(String condition) {
+        return session.createQuery("From Scramble where scramble like"
+                + " :condition").setString("condition", '%' + condition + '%')
+                .list();
+    }
 
     @Override
     public Scramble add(Scramble entity) throws CustomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        saveEntity(entity);
+        return entity;
     }
 
     @Override
     public Scramble update(Scramble entity) throws CustomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        saveEntity(entity);
+        return entity;
     }
 
 }

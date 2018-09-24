@@ -59,9 +59,7 @@ public class Event extends Entity implements Serializable {
     
     @Override
     public String toString() {
-        return String.format
-            ("Event [id=%s, name=%s, rank=%s, format=%s",
-                    getId(), name, rank, format);
+        return getName();
     
     } 
     

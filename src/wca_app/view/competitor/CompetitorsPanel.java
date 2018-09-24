@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wca_app.view.competitors;
+package wca_app.view.competitor;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import wca_app.controller.CompetitorController;
 import wca_app.model.Competitor;
 import wca_app.model.Operator;
@@ -101,6 +102,14 @@ public class CompetitorsPanel extends javax.swing.JPanel {
         });
 
         updateBtn.setText("Update");
+        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                updateBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                updateBtnMouseExited(evt);
+            }
+        });
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateBtnActionPerformed(evt);
@@ -216,7 +225,19 @@ public class CompetitorsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_searchFieldKeyReleased
 
+    private void updateBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseEntered
+        if (table.getSelectedRowCount()== 1) {
+            updateBtn.setEnabled(true);
+        } else {
+            updateBtn.setEnabled(false);
+        }
+    }//GEN-LAST:event_updateBtnMouseEntered
 
+    private void updateBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseExited
+        updateBtn.setEnabled(true);
+    }//GEN-LAST:event_updateBtnMouseExited
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JPanel controlButtonPnl1;
@@ -281,4 +302,10 @@ public class CompetitorsPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    public JTable getTable() {
+        return table;
+    }
+    
+    
 }

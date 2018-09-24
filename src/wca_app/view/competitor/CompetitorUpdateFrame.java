@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wca_app.view.competitors;
+package wca_app.view.competitor;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -11,23 +11,27 @@ import wca_app.controller.CompetitorController;
 import wca_app.controller.CountryController;
 import wca_app.model.Competitor;
 import wca_app.model.Country;
+import wca_app.tablemodel.CompetitorTableModel;
 
 /**
  *
  * @author Mata
  */
-public class CompetitorAddFrame extends javax.swing.JFrame {
+public class CompetitorUpdateFrame extends javax.swing.JFrame {
 
     private Competitor entity;
     private CompetitorController controller;
     private CompetitorsPanel panel;
 
-    public CompetitorAddFrame(CompetitorsPanel panel) {
+    public CompetitorUpdateFrame(CompetitorsPanel panel, Competitor competitor) {
         initComponents();
         getRootPane().setDefaultButton(saveBtn);
         controller = new CompetitorController();
         this.panel = panel;
+        entity = competitor;
         loadCountries();
+        loadEntityProperties(entity);
+
     }
 
     /**
@@ -76,13 +80,10 @@ public class CompetitorAddFrame extends javax.swing.JFrame {
             }
         });
 
-        firstNameLbl.setLabelFor(firstNameField);
         firstNameLbl.setText("First name:");
 
-        lastNameLbl.setLabelFor(lastNameField);
         lastNameLbl.setText("Last name:");
 
-        countryLbl.setLabelFor(countryCmb);
         countryLbl.setText("Country: ");
 
         tagLbl.setText("Tag:");
@@ -181,22 +182,6 @@ public class CompetitorAddFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        entity = new Competitor();
-        if (!fillEntityProperties()) {
-            return;
-        }
-        try {
-            controller.add(entity);
-            panel.refreshEntityView();
-            dispose();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }//GEN-LAST:event_saveBtnActionPerformed
-
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         if (JOptionPane.showConfirmDialog(getRootPane(),
                 "Changes not saved! Do you want to proceed?", "Exit",
@@ -206,16 +191,38 @@ public class CompetitorAddFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cancelBtnActionPerformed
 
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+
+        if (!fillEntityProperties()) {
+            return;
+        }
+        try {
+            Competitor newCompetitor = controller.update(entity);
+            panel.refreshEntityView();
+            for(int i = 0; i < panel.getTable().getModel().getRowCount();i++){
+                if(panel.getTable().getValueAt(i, CompetitorTableModel.ID_COL)
+                        == newCompetitor.getId()){
+                    panel.getTable().setRowSelectionInterval(i, i);
+                    break;
+                }
+            }
+            dispose();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_saveBtnActionPerformed
+
     private boolean fillEntityProperties() {
         entity.setFirstName(firstNameField.getText());
         entity.setLastName(lastNameField.getText());
         entity.setTag(tagField.getText());
+        entity.setCountry_id(countryCmb.getItemAt(countryCmb.getSelectedIndex()));
         if (genderCmb.getSelectedIndex() == 0) {
             entity.setGender('M');
         } else {
             entity.setGender('F');
         }
-        entity.setCountry_id(countryCmb.getItemAt(countryCmb.getSelectedIndex()));
         return true;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -241,6 +248,19 @@ public class CompetitorAddFrame extends javax.swing.JFrame {
             model.addElement(s);
         });
         countryCmb.setModel(model);
+    }
+
+    private void loadEntityProperties(Competitor competitor) {
+        firstNameField.setText(competitor.getFirstName());
+        lastNameField.setText(competitor.getLastName());
+        countryCmb.setSelectedItem(competitor.getCountry_id());
+        if (competitor.getGender() == 'M') {
+            genderCmb.setSelectedIndex(0);
+        } else {
+            genderCmb.setSelectedIndex(1);
+        }
+        tagField.setText(competitor.getTag());
+
     }
 
 }
