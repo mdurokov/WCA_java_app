@@ -8,7 +8,7 @@ import wca_app.util.CustomException;
 /**
  * @author Mata
  */
-public class ResultsController extends Controller implements ControllerInterface<Result> {
+public class ResultController extends Controller implements ControllerInterface<Result> {
 
     @Override
     public List<Result> getEntities() {

@@ -8,7 +8,7 @@ import wca_app.util.CustomException;
 /**
  * @author Mata
  */
-public class ScramblesController extends Controller implements ControllerInterface<Scramble>{
+public class ScrambleController extends Controller implements ControllerInterface<Scramble>{
 
     @Override
     public List<Scramble> getEntities() {

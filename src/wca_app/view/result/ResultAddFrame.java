@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
 import wca_app.controller.CompetitionController;
 import wca_app.controller.CompetitorController;
 import wca_app.controller.CountryController;
-import wca_app.controller.EventsContorller;
-import wca_app.controller.FormatsController;
-import wca_app.controller.ResultsController;
-import wca_app.controller.RoundTypesController;
+import wca_app.controller.EventContorller;
+import wca_app.controller.FormatController;
+import wca_app.controller.ResultController;
+import wca_app.controller.RoundTypeController;
 import wca_app.model.Competition;
 import wca_app.model.Competitor;
 import wca_app.model.Country;
@@ -32,14 +32,14 @@ import wca_app.tablemodel.CompetitionTableModel;
 public class ResultAddFrame extends javax.swing.JFrame {
 
     private Result entity;
-    private ResultsController controller;
+    private ResultController controller;
     private ResultsPanel panel;
 
     public ResultAddFrame(ResultsPanel panel) {
         initComponents();
         getRootPane().setDefaultButton(saveBtn);
         this.panel = panel;
-        controller = new ResultsController();
+        controller = new ResultController();
         loadCompetitions();
         loadCompetitiors();
         loadEvent();
@@ -344,7 +344,7 @@ public class ResultAddFrame extends javax.swing.JFrame {
     }
     
     private void loadEvent(){
-        EventsContorller controller = new EventsContorller();
+        EventContorller controller = new EventContorller();
         DefaultComboBoxModel<Event> model = new DefaultComboBoxModel<>();
         controller.getEntities().forEach((s) -> {
             model.addElement(s);
@@ -353,7 +353,7 @@ public class ResultAddFrame extends javax.swing.JFrame {
     }
     
     private void loadFormats(){
-        FormatsController controller = new FormatsController();
+        FormatController controller = new FormatController();
         DefaultComboBoxModel<Format> model = new DefaultComboBoxModel<>();
         controller.getEntities().forEach((s) -> {
             model.addElement(s);
@@ -371,7 +371,7 @@ public class ResultAddFrame extends javax.swing.JFrame {
     }
     
     private void loadCompetitiors(){
-        RoundTypesController controller = new RoundTypesController();
+        RoundTypeController controller = new RoundTypeController();
         DefaultComboBoxModel<RoundType> model = new DefaultComboBoxModel<>();
         controller.getEntities().forEach((s) -> {
             model.addElement(s);

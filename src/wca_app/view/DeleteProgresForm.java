@@ -7,7 +7,10 @@ package wca_app.view;
 
 import wca_app.model.Competition;
 import wca_app.model.Competitor;
+import wca_app.model.Event;
+import wca_app.model.Format;
 import wca_app.model.Result;
+import wca_app.model.RoundType;
 import wca_app.model.Scramble;
 
 /**
@@ -44,6 +47,24 @@ public class DeleteProgresForm extends javax.swing.JFrame {
     }
     
     public void changeAppearance(int i, int max, Result result){
+        deletePrb.setValue(i);
+        infoLbl.setText("Deleting: " + result.getId());
+        percentageLbl.setText(i + "/" + max);
+    }
+    
+    public void changeAppearance(int i, int max, RoundType result){
+        deletePrb.setValue(i);
+        infoLbl.setText("Deleting: " + result.getId());
+        percentageLbl.setText(i + "/" + max);
+    }
+    
+    public void changeAppearance(int i, int max, Format result){
+        deletePrb.setValue(i);
+        infoLbl.setText("Deleting: " + result.getId());
+        percentageLbl.setText(i + "/" + max);
+    }
+    
+    public void changeAppearance(int i, int max, Event result){
         deletePrb.setValue(i);
         infoLbl.setText("Deleting: " + result.getId());
         percentageLbl.setText(i + "/" + max);

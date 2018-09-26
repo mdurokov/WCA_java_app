@@ -5,6 +5,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import wca_app.model.Continent;
+import wca_app.model.Country;
 import wca_app.model.Event;
 import wca_app.model.Format;
 import wca_app.model.Operator;
@@ -33,8 +34,8 @@ public class InitialInsert {
             session.save(continent);
             continent = new Continent("Asia", "AsR", new BigInteger("34364439"), new BigInteger("108330700"), 3);
             session.save(continent);
-            continent = new Continent("Europe", "ER", new BigInteger("58299984"), new BigInteger("23049300"), 3);
-            session.save(continent);
+            Continent continent1 = new Continent("Europe", "ER", new BigInteger("58299984"), new BigInteger("23049300"), 3);
+            session.save(continent1);
             continent = new Continent("North America", "NAR", new BigInteger("45486546"), new BigInteger("-93449700"), 3);
             session.save(continent);
             continent = new Continent("Oceania", "OcR", new BigInteger("-25274398"), new BigInteger("133775136"), 3);
@@ -44,6 +45,10 @@ public class InitialInsert {
             continent = new Continent("Multiple Continents", "", new BigInteger("0"), new BigInteger("0"), 1);
             session.save(continent);
 
+            //Country
+            Country country = new Country(continent1, "Croatia", "cro");
+            session.save(country);
+            
             // Events
             Event event = new Event("2x2x2 Cube", 20, "time");
             session.save(event);
@@ -101,27 +106,27 @@ public class InitialInsert {
             session.save(format);
 
             // RoundTypes
-            RoundType roundType = new RoundType(19, "Qualification round", "Qualification", 0);
+            RoundType roundType = new RoundType(19, "Qualification round", "Qualification", false);
             session.save(roundType);
-            roundType = new RoundType(29, "First round", "First", 0);
+            roundType = new RoundType(29, "First round", "First", false);
             session.save(roundType);
-            roundType = new RoundType(50, "Second round", "Second", 0);
+            roundType = new RoundType(50, "Second round", "Second", false);
             session.save(roundType);
-            roundType = new RoundType(79, "Semi Final", "Semi Final", 0);
+            roundType = new RoundType(79, "Semi Final", "Semi Final", false);
             session.save(roundType);
-            roundType = new RoundType(39, "B Final", "B Final", 0);
+            roundType = new RoundType(39, "B Final", "B Final", false);
             session.save(roundType);
-            roundType = new RoundType(90, "Combined Final", "Combined Final", 1);
+            roundType = new RoundType(90, "Combined Final", "Combined Final", true);
             session.save(roundType);
-            roundType = new RoundType(20, "Combined First round", "Combined First", 0);
+            roundType = new RoundType(20, "Combined First round", "Combined First", false);
             session.save(roundType);
-            roundType = new RoundType(59, "Combined Second round", "Combined Second", 0);
+            roundType = new RoundType(59, "Combined Second round", "Combined Second", false);
             session.save(roundType);
-            roundType = new RoundType(99, "Final", "Final", 1);
+            roundType = new RoundType(99, "Final", "Final", true);
             session.save(roundType);
-            roundType = new RoundType(70, "Combined Third round", "Combined Third", 0);
+            roundType = new RoundType(70, "Combined Third round", "Combined Third", false);
             session.save(roundType);
-            roundType = new RoundType(10, "Combined qualification", "Combined qualification", 0);
+            roundType = new RoundType(10, "Combined qualification", "Combined qualification", false);
             session.save(roundType);
 
             transaction.commit();

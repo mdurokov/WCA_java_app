@@ -10,7 +10,7 @@ import wca_app.util.CustomException;
 /**
  * @author Mata
  */
-public class RoundTypesController extends Controller 
+public class RoundTypeController extends Controller 
         implements ControllerInterface<RoundType>{
 
     @Override

@@ -11,15 +11,16 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import wca_app.controller.CompetitionController;
 import wca_app.controller.CountryController;
-import wca_app.controller.EventsContorller;
-import wca_app.controller.RoundTypesController;
-import wca_app.controller.ScramblesController;
+import wca_app.controller.EventContorller;
+import wca_app.controller.RoundTypeController;
+import wca_app.controller.ScrambleController;
 import wca_app.model.Competition;
 import wca_app.model.Country;
 import wca_app.model.Event;
 import wca_app.model.RoundType;
 import wca_app.model.Scramble;
 import wca_app.tablemodel.CompetitionTableModel;
+import wca_app.tablemodel.ScrambleTableModel;
 
 /**
  *
@@ -28,14 +29,14 @@ import wca_app.tablemodel.CompetitionTableModel;
 public class ScrambleAddFrame extends javax.swing.JFrame {
 
     private Scramble entity;
-    private ScramblesController controller;
+    private ScrambleController controller;
     private ScramblesPanel panel;
 
     public ScrambleAddFrame(ScramblesPanel panel) {
         initComponents();
         getRootPane().setDefaultButton(saveBtn);
         this.panel = panel;
-        controller = new ScramblesController();
+        controller = new ScrambleController();
         loadCompeitions();
         loadEvents();
         loadRoundTypes();
@@ -230,7 +231,7 @@ public class ScrambleAddFrame extends javax.swing.JFrame {
             Scramble newScramble = controller.add(entity);
             panel.refreshEntityView();
             for(int i = 0; i < panel.getTable().getModel().getRowCount();i++){
-                if(panel.getTable().getValueAt(i, CompetitionTableModel.ID_COL)
+                if(panel.getTable().getValueAt(i, ScrambleTableModel.ID_COL)
                         == newScramble.getId()){
                     panel.getTable().setRowSelectionInterval(i, i);
                     break;
@@ -275,7 +276,7 @@ public class ScrambleAddFrame extends javax.swing.JFrame {
     }
     
     private void loadEvents(){
-        EventsContorller controller = new EventsContorller();
+        EventContorller controller = new EventContorller();
         DefaultComboBoxModel<Event> model = new DefaultComboBoxModel<>();
         controller.getEntities().forEach((s) -> {
             model.addElement(s);
@@ -284,7 +285,7 @@ public class ScrambleAddFrame extends javax.swing.JFrame {
     }
     
     private void loadRoundTypes(){
-        RoundTypesController controller = new RoundTypesController();
+        RoundTypeController controller = new RoundTypeController();
         DefaultComboBoxModel<RoundType> model = new DefaultComboBoxModel<>();
         controller.getEntities().forEach((s) -> {
             model.addElement(s);

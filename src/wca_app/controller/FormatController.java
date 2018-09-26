@@ -8,7 +8,7 @@ import wca_app.util.CustomException;
 /**
  * @author Mata
  */
-public class FormatsController extends Controller
+public class FormatController extends Controller
         implements ControllerInterface<Format>{
 
     @Override

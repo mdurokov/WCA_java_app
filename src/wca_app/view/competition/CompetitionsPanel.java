@@ -36,9 +36,13 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         try {
             controller = new CompetitionController();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error",
+            JOptionPane.showMessageDialog(this, "Error whie creating "
+                    + "competition controller: " + e, "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+        addBtn.setEnabled(false);
+        updateBtn.setEnabled(false);
+        deleteBtn.setEnabled(false);
         refreshEntityView();
     }
 
@@ -102,12 +106,6 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         });
 
         updateBtn.setText("Update");
-        updateBtn.setEnabled(false);
-        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updateBtnMouseEntered(evt);
-            }
-        });
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateBtnActionPerformed(evt);
@@ -115,7 +113,6 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         });
 
         deleteBtn.setText("Delete");
-        deleteBtn.setEnabled(false);
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
@@ -191,21 +188,28 @@ public class CompetitionsPanel extends javax.swing.JPanel {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         if (table.getSelectedRows().length == 1) {
-            try {
-                Competition competition = (Competition) table
-                        .getValueAt(table.getSelectedRow(),
-                                CompetitionTableModel.OBJECT_COL);
-                controller.deleteEntity(competition);
-            } catch (Exception ex) {
-                HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Competition "
-                        + table.getSelectedRow()
-                        + " can't be deleted");
+            if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
+                    + " want to delete selected item?", 
+                    "Confirm", JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                try {
+                    Competition competition = (Competition) table
+                            .getValueAt(table.getSelectedRow(),
+                                    CompetitionTableModel.OBJECT_COL);
+                    controller.deleteEntity(competition);
+                } catch (Exception ex) {
+                    HibernateUtil.getSession().clear();
+                    JOptionPane.showMessageDialog(getRootPane(), "Competition "
+                            + table.getSelectedRow()
+                            + " can't be deleted");
+                }
+                refreshEntityView();
             }
-            refreshEntityView();
         } else {
             if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
-                    + " want to delete selected items?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    + " want to delete selected items?", 
+                    "Confirm", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
                 new MultiDelete().start();
             }
         }
@@ -221,14 +225,6 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_searchFieldKeyReleased
 
-    private void updateBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseEntered
-        if (table.getSelectedRowCount()== 1) {
-            updateBtn.setEnabled(true);
-        } else {
-            updateBtn.setEnabled(false);
-        }
-    }//GEN-LAST:event_updateBtnMouseEntered
-
     public class MultiDelete extends Thread {
 
         public void run() {
@@ -237,7 +233,8 @@ public class CompetitionsPanel extends javax.swing.JPanel {
             DeleteProgresForm deleteForm = new DeleteProgresForm(max);
             deleteForm.setVisible(true);
             for (int i : table.getSelectedRows()) {
-                Competition competition = (Competition) table.getValueAt(i, CompetitionTableModel.OBJECT_COL);
+                Competition competition = (Competition) table.getValueAt(i,
+                        CompetitionTableModel.OBJECT_COL);
                 j++;
                 deleteForm.changeAppearance(j, max, competition);
                 try {
@@ -267,17 +264,14 @@ public class CompetitionsPanel extends javax.swing.JPanel {
             if (operator.getIsAdmin()) {
                 if (model.getRowCount() > 0) {
                     table.setRowSelectionInterval(0, 0);
+                    addBtn.setEnabled(true);
                     updateBtn.setEnabled(true);
                     deleteBtn.setEnabled(true);
                 } else {
+                    addBtn.setEnabled(true);
                     updateBtn.setEnabled(false);
                     deleteBtn.setEnabled(false);
                 }
-            } else {
-                table.setRowSelectionInterval(0, 0);
-                addBtn.setEnabled(false);
-                updateBtn.setEnabled(false);
-                deleteBtn.setEnabled(false);
             }
 
         } catch (Exception e) {

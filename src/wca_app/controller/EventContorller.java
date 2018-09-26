@@ -9,7 +9,7 @@ import wca_app.util.CustomException;
 /**
  * @author Mata
  */
-public class EventsContorller extends Controller 
+public class EventContorller extends Controller 
         implements ControllerInterface<Event>{
 
     @Override

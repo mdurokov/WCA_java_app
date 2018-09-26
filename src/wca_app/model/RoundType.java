@@ -19,10 +19,10 @@ public class RoundType extends Entity implements Serializable{
     @Column(nullable=false)
     private String cellName;
     @Column(nullable=false)
-    private int finale;
+    private boolean finale;
     
     //  CONSTRUCTORS
-    public RoundType(int rank, String name, String cellName, int finale) {
+    public RoundType(int rank, String name, String cellName, boolean finale) {
         this.rank = rank;
         this.name = name;
         this.cellName = cellName;
@@ -59,11 +59,11 @@ public class RoundType extends Entity implements Serializable{
         this.cellName = cellName;
     }
 
-    public int getFinale() {
+    public boolean getFinale() {
         return finale;
     }
 
-    public void setFinale(int finale) {
+    public void setFinale(boolean finale) {
         this.finale = finale;
     }
     //  END GETTERS SETTERS

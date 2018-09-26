@@ -8,7 +8,7 @@ package wca_app.view.scramble;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import wca_app.controller.ScramblesController;
+import wca_app.controller.ScrambleController;
 import wca_app.model.Operator;
 import wca_app.model.Scramble;
 import wca_app.tablemodel.ScrambleTableModel;
@@ -21,7 +21,7 @@ import wca_app.view.DeleteProgresForm;
  */
 public class ScramblesPanel extends javax.swing.JPanel {
 
-    private ScramblesController controller;
+    private ScrambleController controller;
     private ScrambleAddFrame addFrame;
     private ScrambleUpdateFrame updateFrame;
     private Operator operator;
@@ -34,10 +34,13 @@ public class ScramblesPanel extends javax.swing.JPanel {
         setName("Scrambles");
         this.operator = operator;
         try {
-            controller = new ScramblesController();
+            controller = new ScrambleController();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error while creating scramble "
+                    + "controller: " + e, "Error", JOptionPane.ERROR_MESSAGE);
         }
+        updateBtn.setEnabled(false);
+        deleteBtn.setEnabled(false);
         refreshEntityView();
 
     }
@@ -102,15 +105,6 @@ public class ScramblesPanel extends javax.swing.JPanel {
         });
 
         updateBtn.setText("Update");
-        updateBtn.setEnabled(false);
-        updateBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updateBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                updateBtnMouseExited(evt);
-            }
-        });
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateBtnActionPerformed(evt);
@@ -118,7 +112,6 @@ public class ScramblesPanel extends javax.swing.JPanel {
         });
 
         deleteBtn.setText("Delete");
-        deleteBtn.setEnabled(false);
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
@@ -194,21 +187,28 @@ public class ScramblesPanel extends javax.swing.JPanel {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         if (table.getSelectedRows().length == 1) {
-            try {
-                Scramble entity = (Scramble) table
-                        .getValueAt(table.getSelectedRow(),
-                                ScrambleTableModel.OBJECT_COL);
-                controller.deleteEntity(entity);
-            } catch (Exception ex) {
-                HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Competition "
-                        + table.getSelectedRow()
-                        + " can't be deleted");
+            if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
+                    + " want to delete selected item?", "Confirm",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                try {
+                    Scramble entity = (Scramble) table
+                            .getValueAt(table.getSelectedRow(),
+                                    ScrambleTableModel.OBJECT_COL);
+                    controller.deleteEntity(entity);
+                } catch (Exception ex) {
+                    HibernateUtil.getSession().clear();
+                    JOptionPane.showMessageDialog(getRootPane(), "Competition "
+                            + table.getSelectedRow()
+                            + " can't be deleted");
+                }
+                refreshEntityView();
             }
-            refreshEntityView();
         } else {
             if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
-                    + " want to delete selected items?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    + " want to delete selected items?", "Confirm",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
                 new MultiDelete().start();
             }
         }
@@ -223,18 +223,6 @@ public class ScramblesPanel extends javax.swing.JPanel {
             refreshEntityView();
         }
     }//GEN-LAST:event_searchFieldKeyReleased
-
-    private void updateBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseEntered
-        if (table.getSelectedRowCount()== 1) {
-            updateBtn.setEnabled(true);
-        } else {
-            updateBtn.setEnabled(false);
-        }
-    }//GEN-LAST:event_updateBtnMouseEntered
-
-    private void updateBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateBtnMouseExited
-        updateBtn.setEnabled(true);
-    }//GEN-LAST:event_updateBtnMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -277,8 +265,7 @@ public class ScramblesPanel extends javax.swing.JPanel {
             refreshEntityView();
         }
     }
-    
-    
+
     protected void refreshEntityView() {
         try {
             List<Scramble> scrambles
@@ -286,28 +273,21 @@ public class ScramblesPanel extends javax.swing.JPanel {
             ScrambleTableModel model
                     = new ScrambleTableModel(scrambles);
             table.setModel(model);
-            if (operator.getIsAdmin()) {
-                if (model.getRowCount() > 0) {
-                    table.setRowSelectionInterval(0, 0);
-                    updateBtn.setEnabled(true);
-                    deleteBtn.setEnabled(true);
-                } else {
-                    updateBtn.setEnabled(false);
-                    deleteBtn.setEnabled(false);
-                }
-            } else {
-                table.setRowSelectionInterval(0, 0);
-                addBtn.setEnabled(false);
+            if(model.getRowCount() > 0){
+                updateBtn.setEnabled(true);
+                deleteBtn.setEnabled(true);
+            }else{
                 updateBtn.setEnabled(false);
                 deleteBtn.setEnabled(false);
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error",
+            JOptionPane.showMessageDialog(this, "Error while refreshing "
+                    + "scramble view: " + e, "Error", 
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     public JTable getTable() {
         return table;
     }

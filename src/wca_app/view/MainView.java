@@ -15,6 +15,7 @@ import wca_app.view.competition.CompetitionsPanel;
 import wca_app.view.competitor.CompetitorsPanel;
 import wca_app.view.result.ResultsPanel;
 import wca_app.view.scramble.ScramblesPanel;
+import wca_app.view.options.OptionsPanel;
 
 
 public class MainView extends javax.swing.JFrame {
@@ -23,6 +24,7 @@ public class MainView extends javax.swing.JFrame {
     private CompetitorsPanel competitorsPanel;
     private ResultsPanel resultsPanel;
     private ScramblesPanel scramblesPanel;
+    private OptionsPanel optionsPanel;
     private Operator operator;
     private Border loweredBorder = BorderFactory.createLoweredBevelBorder();
     private Border raisedBorder = BorderFactory.createRaisedBevelBorder();
@@ -32,13 +34,16 @@ public class MainView extends javax.swing.JFrame {
         this.operator = operator;
         if(operator.getIsAdmin() == true){
             setTitle("WCA - World Cube Association Admin");
+            optionsBtn.setEnabled(true);
         }else{
             setTitle("WCA - World Cube Association");
+            optionsBtn.setEnabled(false);
         }
         competitionsPanel = new CompetitionsPanel(operator);
         competitorsPanel = new CompetitorsPanel(operator);
         resultsPanel = new ResultsPanel(operator);
         scramblesPanel = new ScramblesPanel(operator);
+        optionsPanel = new OptionsPanel();
         setPanel(competitionsPanel);
         
         
@@ -98,6 +103,11 @@ public class MainView extends javax.swing.JFrame {
 
         optionsBtn.setText("Options");
         optionsBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        optionsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optionsBtnActionPerformed(evt);
+            }
+        });
 
         competitionsBtn.setText("Competitions");
         competitionsBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -230,6 +240,10 @@ public class MainView extends javax.swing.JFrame {
         new AutorizationForm().setVisible(true);
     }//GEN-LAST:event_logoutBtnActionPerformed
 
+    private void optionsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsBtnActionPerformed
+        setPanel(optionsPanel);
+    }//GEN-LAST:event_optionsBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton competitionsBtn;
     private javax.swing.JButton competitorsBtn;
@@ -267,6 +281,10 @@ public class MainView extends javax.swing.JFrame {
                 break;
             case "Scrambles":
                 scramblesBtn.setBorder(loweredBorder);
+                break;
+            case "Options":
+                optionsBtn.setBorder(loweredBorder);
+                break;
                     
         }
         

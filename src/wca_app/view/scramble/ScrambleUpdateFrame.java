@@ -11,9 +11,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import wca_app.controller.CompetitionController;
 import wca_app.controller.CountryController;
-import wca_app.controller.EventsContorller;
-import wca_app.controller.RoundTypesController;
-import wca_app.controller.ScramblesController;
+import wca_app.controller.EventContorller;
+import wca_app.controller.RoundTypeController;
+import wca_app.controller.ScrambleController;
 import wca_app.model.Competition;
 import wca_app.model.Country;
 import wca_app.model.Event;
@@ -28,7 +28,7 @@ import wca_app.tablemodel.CompetitionTableModel;
 public class ScrambleUpdateFrame extends javax.swing.JFrame {
 
     private Scramble entity;
-    private ScramblesController controller;
+    private ScrambleController controller;
     private ScramblesPanel panel;
 
     public ScrambleUpdateFrame(ScramblesPanel panel, Scramble entity) {
@@ -36,7 +36,7 @@ public class ScrambleUpdateFrame extends javax.swing.JFrame {
         getRootPane().setDefaultButton(saveBtn);
         this.panel = panel;
         this.entity = entity;
-        controller = new ScramblesController();
+        controller = new ScrambleController();
         loadCompeitions();
         loadEvents();
         loadRoundTypes();
@@ -276,7 +276,7 @@ public class ScrambleUpdateFrame extends javax.swing.JFrame {
     }
     
     private void loadEvents(){
-        EventsContorller controller = new EventsContorller();
+        EventContorller controller = new EventContorller();
         DefaultComboBoxModel<Event> model = new DefaultComboBoxModel<>();
         controller.getEntities().forEach((s) -> {
             model.addElement(s);
@@ -285,7 +285,7 @@ public class ScrambleUpdateFrame extends javax.swing.JFrame {
     }
     
     private void loadRoundTypes(){
-        RoundTypesController controller = new RoundTypesController();
+        RoundTypeController controller = new RoundTypeController();
         DefaultComboBoxModel<RoundType> model = new DefaultComboBoxModel<>();
         controller.getEntities().forEach((s) -> {
             model.addElement(s);
