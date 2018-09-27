@@ -70,6 +70,7 @@ public class ScramblesPanel extends javax.swing.JPanel {
         tableScrlPnl.setPreferredSize(new java.awt.Dimension(100, 402));
         tableScrlPnl.setWheelScrollingEnabled(false);
 
+        table.setAutoCreateRowSorter(true);
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

@@ -5,7 +5,10 @@
  */
 package wca_app.view.competition;
 
+import java.awt.Color;
 import java.math.BigInteger;
+import java.text.DateFormat;
+import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import wca_app.controller.CompetitionController;
@@ -26,6 +29,8 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
 
     public CompetitionAddFrame(CompetitionsPanel panel) {
         initComponents();
+        startDateDtp.setFormats(DateFormat.getDateInstance(DateFormat.MEDIUM));
+        endDateDtp.setFormats(DateFormat.getDateInstance(DateFormat.MEDIUM));
         getRootPane().setDefaultButton(saveBtn);
         this.panel = panel;
         controller = new CompetitionController();
@@ -262,36 +267,23 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(fieldsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(countryLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(fieldsPnlLayout.createSequentialGroup()
-                                .addComponent(cityLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(20, 20, 20))
-                            .addGroup(fieldsPnlLayout.createSequentialGroup()
-                                .addComponent(nameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(12, 12, 12)))
+                            .addComponent(cityLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(83, 83, 83)
                         .addGroup(fieldsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(fieldsPnlLayout.createSequentialGroup()
-                                .addComponent(countryCmb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(59, 59, 59))
-                            .addComponent(cityField)
-                            .addComponent(nameField))
+                            .addComponent(cityField, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                            .addComponent(nameField)
+                            .addComponent(countryCmb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(40, 40, 40)
                         .addGroup(fieldsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(startDateLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(fieldsPnlLayout.createSequentialGroup()
-                                .addComponent(cellNameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(6, 6, 6))
-                            .addGroup(fieldsPnlLayout.createSequentialGroup()
-                                .addComponent(endDateLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(9, 9, 9)))
+                            .addComponent(startDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cellNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(endDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
                         .addGroup(fieldsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cellNameField)
                             .addComponent(startDateDtp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(fieldsPnlLayout.createSequentialGroup()
-                                .addGroup(fieldsPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(endDateDtp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cellNameField))
-                                .addGap(7, 7, 7)))
-                        .addGap(10, 10, 10)))
+                            .addComponent(endDateDtp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         fieldsPnlLayout.setVerticalGroup(
@@ -342,15 +334,6 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        if (JOptionPane.showConfirmDialog(getRootPane(),
-                "Changes not saved! Do you want to proceed?", "Exit",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
-                == JOptionPane.YES_OPTION) {
-            dispose();
-        }
-    }//GEN-LAST:event_cancelBtnActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (JOptionPane.showConfirmDialog(getRootPane(),
                 "Changes not saved! Do you want to proceed?", "Exit",
@@ -370,7 +353,7 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
             panel.refreshEntityView();
             for(int i = 0; i < panel.getTable().getModel().getRowCount();i++){
                 if(panel.getTable().getValueAt(i, CompetitionTableModel.ID_COL)
-                        == newCompetition.getId()){
+                    == newCompetition.getId()){
                     panel.getTable().setRowSelectionInterval(i, i);
                     break;
                 }
@@ -380,8 +363,16 @@ public class CompetitionAddFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        if (JOptionPane.showConfirmDialog(getRootPane(),
+            "Changes not saved! Do you want to proceed?", "Exit",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)
+        == JOptionPane.YES_OPTION) {
+        dispose();
+        }
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;

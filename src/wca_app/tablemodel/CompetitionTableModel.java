@@ -1,6 +1,7 @@
 
 package wca_app.tablemodel;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import wca_app.model.Competition;
@@ -61,9 +62,11 @@ public class CompetitionTableModel extends AbstractTableModel{
             case COUNTRY_COL:
                 return tempCompetition.getCountry_id();
             case START_DATE_COL:
-                return tempCompetition.getStartDate();
+                return new SimpleDateFormat("dd.MM.yyyy.")
+                        .format(tempCompetition.getStartDate());
             case END_DATE_COL:
-                return tempCompetition.getEndDate();
+                return new SimpleDateFormat("dd.MM.yyyy.")
+                        .format(tempCompetition.getEndDate());
             case VENUE_ADDRESS_COL:
                 return tempCompetition.getVenueAddress();
             case OBJECT_COL:

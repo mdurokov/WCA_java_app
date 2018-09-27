@@ -2,6 +2,7 @@ package wca_app.util;
 
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
+import wca_app.view.Loading;
 
 public class HibernateUtil {
 
@@ -14,9 +15,11 @@ public class HibernateUtil {
     public static Session getSession() {
         if (session == null) {
             try {
-                session = new Configuration().configure().buildSessionFactory().openSession();
+                session = new Configuration().configure().buildSessionFactory()
+                        .openSession();
             } catch (Throwable ex) {
-                System.err.println("Kreiranje Initial SessionFactory neuspjelo: " + ex);
+                System.err.println("Kreiranje Initial SessionFactory neuspjelo:"
+                        + " " + ex);
                 throw new ExceptionInInitializerError(ex);
             }
         }

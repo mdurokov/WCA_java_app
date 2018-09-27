@@ -71,6 +71,7 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         tableScrlPnl.setPreferredSize(new java.awt.Dimension(100, 402));
         tableScrlPnl.setWheelScrollingEnabled(false);
 
+        table.setAutoCreateRowSorter(true);
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -256,8 +257,8 @@ public class CompetitionsPanel extends javax.swing.JPanel {
 
     protected void refreshEntityView() {
         try {
-            List<Competition> competitions
-                    = controller.getEntities(searchField.getText());
+            List<Competition> competitions = controller
+                    .getEntities(searchField.getText());
             CompetitionTableModel model
                     = new CompetitionTableModel(competitions);
             table.setModel(model);
@@ -275,7 +276,8 @@ public class CompetitionsPanel extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e, "Error",
+            JOptionPane.showMessageDialog(this, "Error refreshing competition "
+                    + "view: " + e, "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
     }

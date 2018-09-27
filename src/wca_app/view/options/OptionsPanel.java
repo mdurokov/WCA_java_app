@@ -55,6 +55,25 @@ public class OptionsPanel extends javax.swing.JPanel {
         refreshRoundTypeView();
         refreshFormatView();
         refreshEventView();
+        if (eventTable.getRowCount() > 0) {
+            eventTable.setRowSelectionInterval(0, 0);
+            event = (Event) eventTable.getValueAt(0,
+                    EventTableModel.OBJECT_COL);
+            loadEventProperties(event);
+        }
+        if (formatTable.getRowCount() > 0) {
+            formatTable.setRowSelectionInterval(0, 0);
+            format = (Format) formatTable.getValueAt(0,
+                    FormatTableModel.OBJECT_COL);
+            formatNameField.setText(format.getName());
+        }
+        if (roundTypesTable.getRowCount() > 0) {
+            roundTypesTable.setRowSelectionInterval(0, 0);
+            roundType = (RoundType) roundTypesTable.getValueAt(0,
+                    EventTableModel.OBJECT_COL);
+            loadRoundTypesProperties(roundType);
+        }
+
     }
 
     /**
@@ -111,6 +130,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         eventUpdateBtn = new javax.swing.JButton();
         eventDeleteBtn = new javax.swing.JButton();
 
+        roundTypesTable.setAutoCreateRowSorter(true);
         roundTypesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -304,6 +324,7 @@ public class OptionsPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Round types", jPanel1);
 
+        formatTable.setAutoCreateRowSorter(true);
         formatTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -456,6 +477,7 @@ public class OptionsPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Formats", jPanel2);
 
+        eventTable.setAutoCreateRowSorter(true);
         eventTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -783,6 +805,13 @@ public class OptionsPanel extends javax.swing.JPanel {
                             + " can't be deleted");
                 }
                 refreshRoundTypeView();
+
+                if (roundTypesTable.getRowCount() > 0) {
+                    roundTypesTable.setRowSelectionInterval(0, 0);
+                    roundType = (RoundType) roundTypesTable.getValueAt(0,
+                            EventTableModel.OBJECT_COL);
+                    loadRoundTypesProperties(roundType);
+                }
             }
         } else {
             if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
@@ -834,12 +863,14 @@ public class OptionsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_formatAddBtnActionPerformed
 
     private void formatUpdateBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formatUpdateBtnMouseEntered
-        if (!(formatTable.getRowCount() > 0)) {
-            formatUpdateBtn.setEnabled(false);
-            formatInfoLbl.setText("Field Name can't be empty!");
+        if (formatTable.getRowCount() > 0) {
+            if (formatNameField.getText().isEmpty()) {
+                formatUpdateBtn.setEnabled(false);
+                formatInfoLbl.setText("Field name can't be empty!");
+            }
         } else {
             formatUpdateBtn.setEnabled(false);
-            formatInfoLbl.setText("Select what to update!");
+            formatInfoLbl.setText("There is nothing to update!");
         }
     }//GEN-LAST:event_formatUpdateBtnMouseEntered
 
@@ -895,6 +926,13 @@ public class OptionsPanel extends javax.swing.JPanel {
                             + " can't be deleted");
                 }
                 refreshFormatView();
+                if (formatTable.getRowCount() > 0) {
+                    formatTable.setRowSelectionInterval(0, 0);
+                    format = (Format) formatTable.getValueAt(0,
+                            FormatTableModel.OBJECT_COL);
+                    formatNameField.setText(format.getName());
+                }
+
             }
         } else {
             if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
@@ -974,7 +1012,7 @@ public class OptionsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_eventAddBtnActionPerformed
 
     private void eventUpdateBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventUpdateBtnMouseEntered
-        if (!(formatTable.getRowCount() > 0)) {
+        if (eventTable.getRowCount() > 0) {
             if (eventNameField.getText().trim().isEmpty()
                     || eventRankField.getText().trim().isEmpty()
                     || eventFormatField.getText().trim().isEmpty()) {
@@ -983,7 +1021,7 @@ public class OptionsPanel extends javax.swing.JPanel {
             }
         } else {
             eventUpdateBtn.setEnabled(false);
-            infoLbl.setText("Select what to update!");
+            infoLbl.setText("Nothing to update!");
         }
     }//GEN-LAST:event_eventUpdateBtnMouseEntered
 
@@ -1042,6 +1080,13 @@ public class OptionsPanel extends javax.swing.JPanel {
                             + " can't be deleted");
                 }
                 refreshEventView();
+                if (eventTable.getRowCount() > 0) {
+                    eventTable.setRowSelectionInterval(0, 0);
+                    event = (Event) eventTable.getValueAt(0,
+                            EventTableModel.OBJECT_COL);
+                    loadEventProperties(event);
+                }
+
             }
         } else {
             if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
@@ -1054,22 +1099,22 @@ public class OptionsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_eventDeleteBtnActionPerformed
 
     private void eventTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventTableMouseClicked
-        Event tempEvent = (Event) eventTable.getValueAt(eventTable.
+        event = (Event) eventTable.getValueAt(eventTable.
                 getSelectedRow(), EventTableModel.OBJECT_COL);
-        loadEventProperties(tempEvent);
+        loadEventProperties(event);
     }//GEN-LAST:event_eventTableMouseClicked
 
     private void formatTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formatTableMouseClicked
-        Format tempFormat = (Format) formatTable.getValueAt(formatTable.
+        format = (Format) formatTable.getValueAt(formatTable.
                 getSelectedRow(), FormatTableModel.OBJECT_COL);
         formatNameField.setText(format.getName());
     }//GEN-LAST:event_formatTableMouseClicked
 
     private void roundTypesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundTypesTableMouseClicked
-        RoundType tempRoundType = (RoundType) roundTypesTable
+        roundType = (RoundType) roundTypesTable
                 .getValueAt(roundTypesTable.getSelectedRow(),
                         RoundTypeTableModel.OBJECT_COL);
-        loadRoundTypesProperties(tempRoundType);
+        loadRoundTypesProperties(roundType);
     }//GEN-LAST:event_roundTypesTableMouseClicked
 
 
@@ -1146,12 +1191,6 @@ public class OptionsPanel extends javax.swing.JPanel {
             RoundTypeTableModel model
                     = new RoundTypeTableModel(roundTypes);
             roundTypesTable.setModel(model);
-            if (model.getRowCount() > 0) {
-                roundTypesTable.setRowSelectionInterval(0, 0);
-                roundType =(RoundType) roundTypesTable.getValueAt(0,
-                        EventTableModel.OBJECT_COL);
-                loadRoundTypesProperties(roundType);
-            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error while refreshing "
@@ -1167,12 +1206,6 @@ public class OptionsPanel extends javax.swing.JPanel {
             FormatTableModel model
                     = new FormatTableModel(formats);
             formatTable.setModel(model);
-            if (model.getRowCount() > 0) {
-                formatTable.setRowSelectionInterval(0, 0);
-                format =(Format) formatTable.getValueAt(0,
-                        FormatTableModel.OBJECT_COL);
-                formatNameField.setText(format.getName());
-            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error while refreshing "
@@ -1186,13 +1219,6 @@ public class OptionsPanel extends javax.swing.JPanel {
             List<Event> events = eventController.getEntities();
             EventTableModel model = new EventTableModel(events);
             eventTable.setModel(model);
-            if (model.getRowCount() > 0) {
-                eventTable.setRowSelectionInterval(0, 0);
-                event =(Event) eventTable.getValueAt(0,
-                        EventTableModel.OBJECT_COL);
-                loadEventProperties(event);
-            }
-            
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error while refreshing "
@@ -1243,6 +1269,13 @@ public class OptionsPanel extends javax.swing.JPanel {
 
             deleteForm.dispose();
             refreshRoundTypeView();
+
+            if (roundTypesTable.getRowCount() > 0) {
+                roundTypesTable.setRowSelectionInterval(0, 0);
+                roundType = (RoundType) roundTypesTable.getValueAt(0,
+                        EventTableModel.OBJECT_COL);
+                loadRoundTypesProperties(roundType);
+            }
         }
     }
 
@@ -1271,6 +1304,13 @@ public class OptionsPanel extends javax.swing.JPanel {
 
             deleteForm.dispose();
             refreshFormatView();
+            if (formatTable.getRowCount() > 0) {
+                formatTable.setRowSelectionInterval(0, 0);
+                format = (Format) formatTable.getValueAt(0,
+                        FormatTableModel.OBJECT_COL);
+                formatNameField.setText(format.getName());
+            }
+
         }
     }
 
@@ -1299,6 +1339,13 @@ public class OptionsPanel extends javax.swing.JPanel {
 
             deleteForm.dispose();
             refreshEventView();
+            if (eventTable.getRowCount() > 0) {
+                eventTable.setRowSelectionInterval(0, 0);
+                event = (Event) eventTable.getValueAt(0,
+                        EventTableModel.OBJECT_COL);
+                loadEventProperties(event);
+            }
+
         }
     }
 }

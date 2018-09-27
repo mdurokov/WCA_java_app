@@ -6,6 +6,7 @@
 package wca_app.view.competition;
 
 import java.math.BigInteger;
+import java.text.DateFormat;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import wca_app.controller.CompetitionController;
@@ -26,6 +27,8 @@ public class CompetitionUpdateFrame extends javax.swing.JFrame {
 
     public CompetitionUpdateFrame(CompetitionsPanel panel, Competition entity) {
         initComponents();
+        startDateDtp.setFormats(DateFormat.getDateInstance(DateFormat.MEDIUM));
+        endDateDtp.setFormats(DateFormat.getDateInstance(DateFormat.MEDIUM));
         getRootPane().setDefaultButton(saveBtn);
         controller = new CompetitionController();
         this.entity = entity;
