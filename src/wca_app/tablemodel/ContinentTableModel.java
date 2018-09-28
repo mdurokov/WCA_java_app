@@ -68,10 +68,6 @@ public class ContinentTableModel extends AbstractTableModel{
                 return tempContinent.getName();    
         }
     }
-    
-    @Override
-    public Class getColumnClass(int col){
-        return getValueAt(0, col).getClass();
-    }
+
     //  END IMPLEMENTED ABSTRACT METHODS
 }

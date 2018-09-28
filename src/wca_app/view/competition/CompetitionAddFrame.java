@@ -5,10 +5,8 @@
  */
 package wca_app.view.competition;
 
-import java.awt.Color;
 import java.math.BigInteger;
 import java.text.DateFormat;
-import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import wca_app.controller.CompetitionController;

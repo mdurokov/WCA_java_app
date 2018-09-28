@@ -190,8 +190,8 @@ public class CompetitionsPanel extends javax.swing.JPanel {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         if (table.getSelectedRows().length == 1) {
             if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
-                    + " want to delete selected item?", 
-                    "Confirm", JOptionPane.YES_NO_OPTION, 
+                    + " want to delete selected item?", "Confirm",
+                    JOptionPane.YES_NO_OPTION, 
                     JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
                 try {
                     Competition competition = (Competition) table

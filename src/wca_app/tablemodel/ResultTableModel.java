@@ -93,10 +93,5 @@ public class ResultTableModel extends AbstractTableModel{
                 return tempResults.toString();    
         }
     }
-    
-    @Override
-    public Class getColumnClass(int col){
-        return getValueAt(0, col).getClass();
-    }
     //  END IMPLEMENTED ABSTRACT METHODS
 }

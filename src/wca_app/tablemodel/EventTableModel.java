@@ -57,9 +57,5 @@ public class EventTableModel extends AbstractTableModel {
                 return tempEvent.getName();
         }
     }
-    
-    @Override
-    public Class getColumnClass(int col){
-        return getValueAt(0, col).getClass();
-    }
+
 }

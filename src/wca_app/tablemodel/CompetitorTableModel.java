@@ -3,7 +3,6 @@ package wca_app.tablemodel;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import wca_app.model.Competition;
 import wca_app.model.Competitor;
 
 /**
@@ -74,10 +73,6 @@ public class CompetitorTableModel extends AbstractTableModel{
         }
     }
     
-    @Override
-    public Class getColumnClass(int col){
-        return getValueAt(0, col).getClass();
-    }
     
     
     //  END IMPLEMENTED ABSTRACT METHODS

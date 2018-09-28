@@ -47,6 +47,7 @@ public class CompetitorsPanel extends javax.swing.JPanel {
         deleteBtn.setEnabled(false);
         refreshEntityView();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -217,33 +218,33 @@ public class CompetitorsPanel extends javax.swing.JPanel {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         if (table.getSelectedRows().length == 1) {
             if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
-                + " want to delete selected item?", "Confirm",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            try {
-                Competitor competitor = (Competitor) table
-                .getValueAt(table.getSelectedRow(),
-                    CompetitorTableModel.OBJECT_COL);
-                controller.deleteEntity(competitor);
-            } catch (Exception ex) {
-                HibernateUtil.getSession().clear();
-                JOptionPane.showMessageDialog(getRootPane(), "Competitor "
-                    + table.getValueAt(table.getSelectedRow(),
-                        CompetitorTableModel.FIRST_NAME_COL) + " "
-                    + table.getValueAt(table.getSelectedRow(),
-                        CompetitorTableModel.LAST_NAME_COL)
-                    + " can't be deleted");
+                    + " want to delete selected item?", "Confirm",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                try {
+                    Competitor competitor = (Competitor) table
+                            .getValueAt(table.getSelectedRow(),
+                                    CompetitorTableModel.OBJECT_COL);
+                    controller.deleteEntity(competitor);
+                } catch (Exception ex) {
+                    HibernateUtil.getSession().clear();
+                    JOptionPane.showMessageDialog(getRootPane(), "Competitor "
+                            + table.getValueAt(table.getSelectedRow(),
+                                    CompetitorTableModel.FIRST_NAME_COL) + " "
+                            + table.getValueAt(table.getSelectedRow(),
+                                    CompetitorTableModel.LAST_NAME_COL)
+                            + " can't be deleted");
+                }
+                refreshEntityView();
             }
-            refreshEntityView();
-        }
 
         } else {
             if (JOptionPane.showConfirmDialog(getRootPane(), "Are you sure you"
-                + " want to delete selected items?", "Confirm",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            new CompetitorsPanel.MultiDelete().start();
-        }
+                    + " want to delete selected items?", "Confirm",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                new MultiDelete().start();
+            }
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
@@ -293,9 +294,7 @@ public class MultiDelete extends Thread {
         try {
             List<Competitor> competitors = controller
                     .getEntities(searchField.getText());
-            CompetitorTableModel model
-                    = new CompetitorTableModel(competitors);
-            System.out.println(model);
+            model = new CompetitorTableModel(competitors);
             table.setModel(model);
             if (operator.getIsAdmin()) {
                 if (model.getRowCount() > 0) {

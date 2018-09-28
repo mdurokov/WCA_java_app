@@ -50,9 +50,4 @@ public class FormatTableModel extends AbstractTableModel{
                 return tempFormats.getName();
         }
     }
-
-    @Override
-    public Class getColumnClass(int col){
-        return getValueAt(0, col).getClass();
-    }
 }
