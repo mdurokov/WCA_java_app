@@ -390,12 +390,36 @@ public class ResultAddFrame extends javax.swing.JFrame {
         entity.setFormat_id(formatCmb.getItemAt(formatCmb.getSelectedIndex()));
         entity.setRoundType_id(roundTypeCmb
                 .getItemAt(roundTypeCmb.getSelectedIndex()));
-        entity.setValue1(Integer.valueOf(value1Field.getText()));
-        entity.setValue2(Integer.valueOf(value2Field.getText()));
-        entity.setValue3(Integer.valueOf(value3Field.getText()));
-        entity.setValue4(Integer.valueOf(value4Field.getText()));
-        entity.setValue5(Integer.valueOf(value5Field.getText()));
-        entity.setPosition(Integer.valueOf(positionField.getText()));
+        if(value1Field.getText().equals("")){
+            entity.setValue1(0);
+        }else{
+            entity.setValue1(Integer.valueOf(value1Field.getText()));
+        }
+        if(value2Field.getText().equals("")){
+            entity.setValue2(0);
+        }else{
+            entity.setValue2(Integer.valueOf(value2Field.getText()));
+        }
+        if(value3Field.getText().equals("")){
+            entity.setValue3(0);
+        }else{
+            entity.setValue3(Integer.valueOf(value3Field.getText()));
+        }
+        if(value4Field.getText().equals("")){
+            entity.setValue4(0);
+        }else{
+            entity.setValue4(Integer.valueOf(value4Field.getText()));
+        }
+        if(value5Field.getText().equals("")){
+            entity.setValue5(0);
+        }else{
+            entity.setValue5(Integer.valueOf(value5Field.getText()));
+        }
+        if(positionField.getText().equals("")){
+            entity.setPosition(0);
+        }else{
+            entity.setPosition(Integer.valueOf(positionField.getText()));
+        }
         return true;
     }
 

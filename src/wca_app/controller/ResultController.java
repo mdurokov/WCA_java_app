@@ -2,6 +2,7 @@
 package wca_app.controller;
 
 import java.util.List;
+import wca_app.model.Competition;
 import wca_app.model.Result;
 import wca_app.util.CustomException;
 
@@ -19,6 +20,12 @@ public class ResultController extends Controller implements ControllerInterface<
         return session.createQuery("From Result where id like"
                 + " :condition").setString("condition", '%' + condition + '%')
                 .list();
+    }
+    
+    public List<Result> getEntities(Competition competition ){
+        return session.createQuery("From Result where "
+                + "competition_id like :competition")
+                .setString("competition", competition.getId().toString()).list();
     }
 
     @Override

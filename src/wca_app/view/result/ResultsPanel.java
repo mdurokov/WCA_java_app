@@ -14,7 +14,6 @@ import wca_app.model.Result;
 import wca_app.tablemodel.ResultTableModel;
 import wca_app.util.HibernateUtil;
 import wca_app.view.DeleteProgresForm;
-import wca_app.view.competition.CompetitionUpdateFrame;
 
 /**
  *
@@ -277,6 +276,7 @@ public class ResultsPanel extends javax.swing.JPanel {
                     = new ResultTableModel(results);
             table.setModel(model);
             if(model.getRowCount() > 0){
+                table.setRowSelectionInterval(0, 0);
                 updateBtn.setEnabled(true);
                 deleteBtn.setEnabled(true);
             }else{

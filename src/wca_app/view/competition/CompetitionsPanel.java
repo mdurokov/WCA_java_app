@@ -5,6 +5,7 @@
  */
 package wca_app.view.competition;
 
+import java.time.Clock;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -24,6 +25,7 @@ public class CompetitionsPanel extends javax.swing.JPanel {
     private CompetitionController controller;
     private CompetitionAddFrame addFrame;
     private CompetitionUpdateFrame updateFrame;
+    private CompetitionOpenFrame openFrame;
     private Operator operator;
 
     /**
@@ -123,6 +125,11 @@ public class CompetitionsPanel extends javax.swing.JPanel {
         jLabel1.setText("Competitions");
 
         openBtn.setText("Open");
+        openBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout controlButtonPnl1Layout = new javax.swing.GroupLayout(controlButtonPnl1);
         controlButtonPnl1.setLayout(controlButtonPnl1Layout);
@@ -225,6 +232,14 @@ public class CompetitionsPanel extends javax.swing.JPanel {
             refreshEntityView();
         }
     }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void openBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBtnActionPerformed
+        Competition competition = (Competition) table
+                .getValueAt(table.getSelectedRow(),
+                        CompetitionTableModel.OBJECT_COL);
+        openFrame = new CompetitionOpenFrame(competition);
+        openFrame.setVisible(true);
+    }//GEN-LAST:event_openBtnActionPerformed
 
     public class MultiDelete extends Thread {
 
