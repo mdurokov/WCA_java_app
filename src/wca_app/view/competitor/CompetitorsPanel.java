@@ -64,7 +64,6 @@ public class CompetitorsPanel extends javax.swing.JPanel {
         updateBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        openBtn = new javax.swing.JButton();
         tableScrlPnl = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
@@ -112,8 +111,6 @@ public class CompetitorsPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Competitors");
 
-        openBtn.setText("Open");
-
         javax.swing.GroupLayout controlButtonPnl1Layout = new javax.swing.GroupLayout(controlButtonPnl1);
         controlButtonPnl1.setLayout(controlButtonPnl1Layout);
         controlButtonPnl1Layout.setHorizontalGroup(
@@ -124,9 +121,7 @@ public class CompetitorsPanel extends javax.swing.JPanel {
                 .addComponent(updateBtn)
                 .addGap(18, 18, 18)
                 .addComponent(deleteBtn)
-                .addGap(18, 18, 18)
-                .addComponent(openBtn)
-                .addGap(80, 80, 80)
+                .addGap(157, 157, 157)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,8 +138,7 @@ public class CompetitorsPanel extends javax.swing.JPanel {
                     .addComponent(updateBtn)
                     .addComponent(addBtn)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBtn)
-                    .addComponent(openBtn))
+                    .addComponent(searchBtn))
                 .addContainerGap())
         );
 
@@ -254,7 +248,6 @@ public class CompetitorsPanel extends javax.swing.JPanel {
     private javax.swing.JPanel controlButtonPnl1;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton openBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchField;
     private javax.swing.JTable table;

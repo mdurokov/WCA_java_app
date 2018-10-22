@@ -8,6 +8,7 @@ package wca_app.view;
 import java.awt.Component;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import wca_app.model.Operator;
@@ -70,8 +71,8 @@ public class MainView extends javax.swing.JFrame {
         viewPnl = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        logoutBtn1 = new javax.swing.JMenuItem();
         logoutBtn = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,6 +178,14 @@ public class MainView extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
+        logoutBtn1.setText("ERA");
+        logoutBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtn1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(logoutBtn1);
+
         logoutBtn.setText("Logout");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,9 +195,6 @@ public class MainView extends javax.swing.JFrame {
         jMenu1.add(logoutBtn);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -244,15 +250,20 @@ public class MainView extends javax.swing.JFrame {
         setPanel(optionsPanel);
     }//GEN-LAST:event_optionsBtnActionPerformed
 
+    private void logoutBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtn1ActionPerformed
+        JFrame era = new Era();
+        era.setVisible(true);
+    }//GEN-LAST:event_logoutBtn1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton competitionsBtn;
     private javax.swing.JButton competitorsBtn;
     private javax.swing.JPanel decorativePnl;
     private javax.swing.JLabel icon;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem logoutBtn;
+    private javax.swing.JMenuItem logoutBtn1;
     private javax.swing.JPanel menuPnl;
     private javax.swing.JButton optionsBtn;
     private javax.swing.JButton resultsBtn;

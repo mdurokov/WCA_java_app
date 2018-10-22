@@ -208,7 +208,7 @@ public class CompetitionsPanel extends javax.swing.JPanel {
                 } catch (Exception ex) {
                     HibernateUtil.getSession().clear();
                     JOptionPane.showMessageDialog(getRootPane(), "Competition "
-                            + table.getSelectedRow()
+                            + table.getValueAt(table.getSelectedRow(), CompetitionTableModel.OBJECT_COL)
                             + " can't be deleted");
                 }
                 refreshEntityView();

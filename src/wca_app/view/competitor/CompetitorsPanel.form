@@ -42,9 +42,7 @@
                   <Component id="updateBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="deleteBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="openBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="searchField" min="-2" pref="200" max="-2" attributes="0"/>
@@ -64,7 +62,6 @@
                       <Component id="addBtn" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="searchField" alignment="2" min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="searchBtn" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="openBtn" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -114,11 +111,6 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Competitors"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="openBtn">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Open"/>
           </Properties>
         </Component>
       </SubComponents>
